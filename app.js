@@ -309,7 +309,7 @@ function createNewInvoice() {
         price: 700
       }
     ],
-    notes: "PENGIRIMAN TANGGAL " + formatDateIndo(todayStr),
+    notes: `PENGIRIMAN KE SPPG KETEP, SAWANGAN TANGGAL ${getIndonesianDateText(todayStr)}`,
     signature: null,
     signerName: "SITI ZULIKAH",
     signerRole: "KWT SIDO MAKMUR"
