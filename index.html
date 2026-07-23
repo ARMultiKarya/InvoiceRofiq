@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aplikasi Invoice - Hamdan Tahu Tempe</title>
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Reenie+Beanie&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <!-- App Container -->
+  <div class="app-container">
+    
+    <!-- Left Sidebar: Invoice Manager -->
+    <aside class="sidebar no-print">
+      <div class="sidebar-header">
+        <div class="brand">
+          <svg class="brand-logo" viewBox="0 0 100 100" width="36" height="36">
+            <rect width="100" height="100" rx="20" fill="#E8F5E9"/>
+            <path d="M30 40 Q40 30 55 35 Q70 40 75 55 Q65 65 50 60 Q35 55 30 40 Z" fill="#4CAF50" opacity="0.85"/>
+            <circle cx="42" cy="42" r="5" fill="#C8E6C9"/>
+            <circle cx="53" cy="47" r="5" fill="#C8E6C9"/>
+            <circle cx="64" cy="52" r="5" fill="#C8E6C9"/>
+            <path d="M40 50 Q50 40 65 45 Q80 50 85 65 Q75 75 60 70 Q45 65 40 50 Z" fill="#2E7D32" opacity="0.9"/>
+            <circle cx="52" cy="52" r="5" fill="#C8E6C9"/>
+            <circle cx="63" cy="57" r="5" fill="#C8E6C9"/>
+            <circle cx="74" cy="62" r="5" fill="#C8E6C9"/>
+          </svg>
+          <div class="brand-info">
+            <h2>Kwitansiku</h2>
+            <span>v1.0.0</span>
+          </div>
+        </div>
+        <button id="btn-new-invoice" class="btn btn-primary btn-icon">
+          <svg viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+          Invoice Baru
+        </button>
+      </div>
+
+      <div class="sidebar-content">
+        <div class="section-title">Daftar Invoice</div>
+        <ul id="invoice-list" class="invoice-list-items">
+          <!-- Populated by JS -->
+        </ul>
+      </div>
+
+      <div class="sidebar-footer">
+        <button id="btn-export-backup" class="btn btn-secondary btn-sm">Backup Data</button>
+        <button id="btn-import-backup" class="btn btn-secondary btn-sm">Import Data</button>
+        <input type="file" id="input-import-file" style="display: none;" accept=".json">
+      </div>
+    </aside>
+
+    <!-- Main Workspace -->
+    <main class="workspace">
+      
+      <!-- Editor Panel (Left) -->
+      <section class="editor-panel no-print">
+        <header class="workspace-header">
+          <div class="header-title">
+            <h1>Edit Invoice</h1>
+            <p>Sesuaikan rincian kwitansi untuk menghasilkan output yang sesuai</p>
+          </div>
+          <div class="action-buttons">
+            <button id="btn-print" class="btn btn-success btn-icon">
+              <svg viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 6 2 18 2 18 9"></polyline><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path><rect x="6" y="14" width="12" height="8"></rect></svg>
+              Cetak / Simpan PDF
+            </button>
+            <button id="btn-download-jpg" class="btn btn-primary btn-icon">
+              <svg viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+              Download JPG
+            </button>
+          </div>
+        </header>
+
+        <div class="editor-forms">
+          
+          <!-- Metadata Section -->
+          <div class="form-group-card">
+            <div class="card-header">
+              <h3>Rincian Kwitansi</h3>
+            </div>
+            <div class="card-body grid-3">
+              <div class="field">
+                <label for="inv-ref">Nomor Referensi</label>
+                <input type="text" id="inv-ref" placeholder="INV/000064">
+              </div>
+              <div class="field">
+                <label for="inv-date">Tanggal</label>
+                <input type="date" id="inv-date">
+              </div>
+              <div class="field">
+                <label for="inv-due-date">Tanggal Jatuh Tempo</label>
+                <input type="date" id="inv-due-date">
+              </div>
+            </div>
+          </div>
+
+          <!-- Company & Client Info -->
+          <div class="form-group-card grid-2-cols">
+            <!-- Company Info -->
+            <div class="form-group-inner-card">
+              <div class="card-header">
+                <h3>Informasi Perusahaan</h3>
+              </div>
+              <div class="card-body">
+                <div class="field">
+                  <label for="company-name">Nama Perusahaan</label>
+                  <select id="company-name">
+                    <option value="KWT SIDO MAKMUR">KWT SIDO MAKMUR</option>
+                    <option value="HAMDAN TAHU TEMPE">HAMDAN TAHU TEMPE</option>
+                  </select>
+                </div>
+                <div class="field">
+                  <label for="company-logo-select">Logo Perusahaan</label>
+                  <select id="company-logo-select">
+                    <option value="kwt">Logo KWT Sido Makmur</option>
+                    <option value="hamdan">Logo Hamdan Tahu Tempe</option>
+                    <option value="default">Logo Default (SVG/Teks)</option>
+                    <option value="custom">Unggah Logo Kustom...</option>
+                  </select>
+                </div>
+                <div class="field" id="custom-logo-upload-container" style="display: none;">
+                  <label for="company-logo-input">Unggah File Logo</label>
+                  <div class="logo-input-wrapper">
+                    <input type="file" id="company-logo-input" accept="image/*">
+                    <button id="btn-remove-logo" class="btn btn-danger btn-xs" style="display: none; margin-top: 5px;">Hapus Logo</button>
+                  </div>
+                </div>
+                <div class="field">
+                  <label for="company-address">Alamat</label>
+                  <textarea id="company-address" rows="2" placeholder="PUTON, TUKSONGO, BOROBUDUR MAGELANG"></textarea>
+                </div>
+                <div class="field">
+                  <label for="company-phone">Telepon</label>
+                  <input type="text" id="company-phone" placeholder="082138800279">
+                </div>
+                <div class="field">
+                  <label for="company-email">Email</label>
+                  <input type="email" id="company-email" placeholder="kwtsidomakmur@gmail.com">
+                </div>
+              </div>
+            </div>
+
+            <!-- Client Info -->
+            <div class="form-group-inner-card">
+              <div class="card-header">
+                <h3>Tagihan Kepada</h3>
+              </div>
+              <div class="card-body">
+                <div class="field">
+                  <label for="client-name">Nama Pelanggan / Toko</label>
+                  <input type="text" id="client-name" placeholder="F & B PANCARGA TANI GEMILANG">
+                </div>
+                <div class="field">
+                  <label for="client-address">Alamat</label>
+                  <textarea id="client-address" rows="2" placeholder="Dusun Susukan Rt06/02, Kec. Grabag, Magelang 56196"></textarea>
+                </div>
+                <div class="field">
+                  <label for="client-email">Email</label>
+                  <input type="email" id="client-email" placeholder="pancargatanigemilang@gmail.com">
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Items Grid -->
+          <div class="form-group-card">
+            <div class="card-header flex-between">
+              <h3>Daftar Barang / Jasa</h3>
+              <button id="btn-add-item" class="btn btn-secondary btn-sm btn-icon">
+                <svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+                Tambah Item
+              </button>
+            </div>
+            <div class="card-body table-responsive">
+              <table class="editor-table">
+                <thead>
+                  <tr>
+                    <th>Nama Barang</th>
+                    <th width="80">Satuan</th>
+                    <th width="120">Banyaknya</th>
+                    <th width="140">Harga Satuan (Rp)</th>
+                    <th width="120">Jumlah (Rp)</th>
+                    <th width="60"></th>
+                  </tr>
+                </thead>
+                <tbody id="editor-items-container">
+                  <!-- Dynamically populated -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- Notes & Signature -->
+          <div class="form-group-card grid-2-cols">
+            <!-- Notes -->
+            <div class="form-group-inner-card">
+              <div class="card-header">
+                <h3>Keterangan Tambahan</h3>
+              </div>
+              <div class="card-body">
+                <div class="field">
+                  <label for="inv-notes">Keterangan / Detail Pengiriman</label>
+                  <textarea id="inv-notes" rows="4" placeholder="PENGIRIMAN KE SPPG NGADIHARJO, BOROBUDUR, 16 JULI 2026"></textarea>
+                </div>
+              </div>
+            </div>
+
+            <!-- Signature Pad -->
+            <div class="form-group-inner-card">
+              <div class="card-header flex-between">
+                <h3>Tanda Tangan Supplier</h3>
+                <button id="btn-clear-sig" class="btn btn-secondary btn-xs">Hapus Tanda Tangan</button>
+              </div>
+              <div class="card-body">
+                <div class="signature-canvas-container">
+                  <canvas id="signature-pad" width="300" height="120"></canvas>
+                  <span class="canvas-placeholder">Gambar Tanda Tangan di Sini</span>
+                </div>
+                <div class="grid-2 mt-2">
+                  <div class="field">
+                    <label for="signer-name">Nama Supplier</label>
+                    <input type="text" id="signer-name" placeholder="SITI ZULIKAH">
+                  </div>
+                  <div class="field">
+                    <label for="signer-role">Jabatan / Divisi</label>
+                    <input type="text" id="signer-role" placeholder="KWT SIDO MAKMUR">
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- Live Preview Panel (Right) -->
+      <section class="preview-panel">
+        <div class="preview-toolbar no-print">
+          <span class="preview-status">Live Preview (A4 Page Aspect Ratio)</span>
+          <div class="zoom-controls">
+            <button id="btn-zoom-out" class="btn btn-icon btn-secondary btn-xs">
+              <svg viewBox="0 0 24 24" width="12" height="12" stroke="currentColor" stroke-width="2.5" fill="none"><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+            </button>
+            <span id="zoom-value">95%</span>
+            <button id="btn-zoom-in" class="btn btn-icon btn-secondary btn-xs">
+              <svg viewBox="0 0 24 24" width="12" height="12" stroke="currentColor" stroke-width="2.5" fill="none"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+            </button>
+          </div>
+        </div>
+
+        <div class="invoice-sheet-container">
+          <!-- The Page A4 -->
+          <div class="invoice-sheet" id="invoice-sheet-print">
+            
+            <!-- Invoice Header -->
+            <div class="invoice-header-grid">
+              
+              <!-- Company Logo & Brand -->
+              <div class="logo-box">
+                <div class="logo-bg-square">
+                  <svg viewBox="0 0 200 200" class="logo-svg" id="view-logo-svg">
+                    <rect x="10" y="10" width="180" height="180" rx="15" fill="#FFF" stroke="#EAECEE" stroke-width="1"/>
+                    
+                    <!-- Peapods (edamame) -->
+                    <g transform="translate(15, 10)">
+                      <!-- Pod 1 -->
+                      <path d="M45 110 Q70 65 115 75 Q150 82 165 120 Q140 145 105 130 Q70 120 45 110 Z" fill="#6FB76F" stroke="#3A703A" stroke-width="3" opacity="0.95"/>
+                      <circle cx="80" cy="100" r="10" fill="#BDF2BD" stroke="#3A703A" stroke-width="2"/>
+                      <circle cx="108" cy="108" r="10" fill="#BDF2BD" stroke="#3A703A" stroke-width="2"/>
+                      <circle cx="138" cy="114" r="10" fill="#BDF2BD" stroke="#3A703A" stroke-width="2"/>
+                      
+                      <!-- Pod 2 -->
+                      <path d="M65 90 Q90 45 135 55 Q170 62 185 100 Q160 125 125 110 Q90 100 65 90 Z" fill="#4B954B" stroke="#255025" stroke-width="3" opacity="0.95"/>
+                      <circle cx="100" cy="80" r="10" fill="#A7EBA7" stroke="#255025" stroke-width="2"/>
+                      <circle cx="128" cy="88" r="10" fill="#A7EBA7" stroke="#255025" stroke-width="2"/>
+                      <circle cx="158" cy="94" r="10" fill="#A7EBA7" stroke="#255025" stroke-width="2"/>
+                    </g>
+                  </svg>
+                  <div class="logo-text" id="view-logo-text">
+                    <span class="logo-text-primary">KWT SIDO</span>
+                    <span class="logo-text-secondary">MAKMUR</span>
+                  </div>
+                  <img id="view-logo-img" src="" alt="Logo" style="display: none; max-width: 100%; max-height: 100%; object-fit: contain;">
+                </div>
+              </div>
+
+              <!-- Metadata Table -->
+              <div class="meta-box">
+                <h1 class="invoice-title">NOTA KWITANSI</h1>
+                <table class="meta-table">
+                  <tr>
+                    <td class="meta-label">Referensi</td>
+                    <td class="meta-separator">:</td>
+                    <td class="meta-val" id="view-ref">INV/000064</td>
+                  </tr>
+                  <tr>
+                    <td class="meta-label">Tanggal</td>
+                    <td class="meta-separator">:</td>
+                    <td class="meta-val" id="view-date">16/07/2026</td>
+                  </tr>
+                  <tr>
+                    <td class="meta-label">Tgl. Jatuh Tempo</td>
+                    <td class="meta-separator">:</td>
+                    <td class="meta-val" id="view-due-date">18/07/2026</td>
+                  </tr>
+                </table>
+              </div>
+
+            </div>
+
+            <!-- Address Grid: Company Info and Billed To Info -->
+            <div class="address-grid">
+              
+              <!-- Company Profile -->
+              <div class="address-col border-top-blue">
+                <h2 class="section-heading">Informasi Perusahaan</h2>
+                <div class="address-card">
+                  <h3 class="company-title-view" id="view-company-name">HAMDAN TAHU TEMPE</h3>
+                  <p id="view-company-address" class="address-text">TANJUNGSARI, BOROBUDUR, MAGELANG</p>
+                  <p class="contact-text">Telp: <span id="view-company-phone">082138800279</span></p>
+                  <p class="contact-text">Email: <span id="view-company-email">kwtsidomakmur@gmail.com</span></p>
+                </div>
+              </div>
+
+              <!-- Client Profile -->
+              <div class="address-col border-top-blue">
+                <h2 class="section-heading">Tagihan Kepada</h2>
+                <div class="address-card">
+                  <h3 class="client-title-view" id="view-client-name">F & B PANCARGA TANI GEMILANG</h3>
+                  <p id="view-client-address" class="address-text">Susukan, Grabag, Magelang</p>
+                  <p class="contact-text">Email: <span id="view-client-email">pancargatanigemilang@gmail.com</span></p>
+                </div>
+              </div>
+
+            </div>
+
+            <!-- Invoice Items Table -->
+            <table class="invoice-items-table">
+              <thead>
+                <tr>
+                  <th class="col-urai">NAMA BARANG</th>
+                  <th class="col-qty">SATUAN</th>
+                  <th class="col-kuan">BANYAKNYA</th>
+                  <th class="col-harga">Harga</th>
+                  <th class="col-jumlah">Jumlah</th>
+                </tr>
+              </thead>
+              <tbody id="view-items-container">
+                <!-- Dynamically populated by JS to match example rows -->
+              </tbody>
+            </table>
+
+            <!-- Invoice Footer Grid -->
+            <div class="invoice-footer-grid">
+              
+              <!-- Left Footer: Notes & Indonesian Terbilang -->
+              <div class="footer-left">
+                <div class="notes-container border-top-blue-light">
+                  <h3 class="section-heading-sm">KETERANGAN</h3>
+                  <div id="view-notes" class="notes-content">
+                    PENGIRIMAN KE SPPG NGADIHARJO, BOROBUDUR, 16 JULI 2026
+                  </div>
+                </div>
+                
+                <div class="terbilang-container">
+                  <span class="terbilang-title">Terbilang</span>
+                  <div id="view-terbilang" class="terbilang-content">
+                    Enam Ratus Lima Puluh Satu Ribu Rupiah
+                  </div>
+                </div>
+              </div>
+
+              <!-- Right Footer: Subtotal, Total, Signature -->
+              <div class="footer-right">
+                
+                <!-- Totals -->
+                <div class="totals-table-container">
+                  <table class="totals-table">
+                    <tr>
+                      <td class="totals-label">Subtotal</td>
+                      <td class="totals-val" id="view-subtotal">Rp 651.000,00</td>
+                    </tr>
+                    <tr class="total-row">
+                      <td class="totals-label bold-text underline-text">Total</td>
+                      <td class="totals-val bold-text double-underline-text" id="view-total">Rp 651.000,00</td>
+                    </tr>
+                  </table>
+                </div>
+
+                <!-- Signature Section -->
+                <div class="signature-section-view">
+                  <span class="sig-title">SUPPLIER</span>
+                  <div class="sig-image-container">
+                    <img id="view-sig-img" src="" alt="Tanda Tangan" style="display: none;">
+                    <div id="view-sig-placeholder" class="sig-line-placeholder"></div>
+                  </div>
+                  <div class="sig-signer-name underline-text-thin" id="view-signer-name">HAMDAN</div>
+                  <div class="sig-signer-role" id="view-signer-role">Finance Dept</div>
+                </div>
+
+              </div>
+
+            </div>
+
+          </div>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
