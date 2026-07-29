@@ -874,45 +874,59 @@ function bindFormFields() {
     }
   });
 
-  // Sidebar "Kwitansiku" Minimize Toggle
-  const elBtnMinimizeSidebar = document.getElementById("btn-minimize-sidebar");
-  const elAppContainer = document.querySelector(".app-container");
-  if (elBtnMinimizeSidebar && elAppContainer) {
-    elBtnMinimizeSidebar.addEventListener("click", (e) => {
+  // ----------------------------------------------------
+  // Global Event Delegation for Minimize & Collapse Controls
+  // (Ensures instant, reliable toggles on GitHub Pages & all devices)
+  // ----------------------------------------------------
+  document.addEventListener("click", (e) => {
+    // 1. Sidebar "Kwitansiku" Minimize Toggle
+    if (e.target.closest("#btn-minimize-sidebar")) {
       e.stopPropagation();
-      elAppContainer.classList.toggle("sidebar-minimized");
-    });
-  }
+      const appContainer = document.querySelector(".app-container");
+      if (appContainer) {
+        appContainer.classList.toggle("sidebar-minimized");
+      }
+      return;
+    }
 
-  // Collapsible Form Section Cards Toggle (including "Rincian Kwitansi")
-  document.querySelectorAll(".card-toggle-header").forEach(header => {
-    header.addEventListener("click", (e) => {
-      if (e.target.closest("button") && !e.target.closest(".btn-card-collapse")) {
+    // 2. Collapsible Section Cards Toggle (including "Rincian Kwitansi")
+    const cardHeader = e.target.closest(".card-toggle-header");
+    if (cardHeader) {
+      // Do not collapse if user clicked inside input/select/textarea or an action button like "Tambah Item"
+      const button = e.target.closest("button");
+      if (button && !button.classList.contains("btn-card-collapse")) {
         return;
       }
-      const card = header.closest(".collapsible-card");
+      const field = e.target.closest("input, select, textarea");
+      if (field) {
+        return;
+      }
+      const card = cardHeader.closest(".collapsible-card");
       if (card) {
         card.classList.toggle("collapsed");
       }
-    });
-  });
+      return;
+    }
 
-  // Live Preview Minimize Toggle
-  if (elBtnMinimizePreview) {
-    elBtnMinimizePreview.addEventListener("click", (e) => {
-      e.stopPropagation(); // Prevent triggering parent click handler
-      elWorkspace.classList.toggle("preview-minimized");
-    });
-  }
-
-  // Also toggle back if the user clicks anywhere on the minimized preview panel
-  if (elPreviewPanel) {
-    elPreviewPanel.addEventListener("click", () => {
-      if (elWorkspace.classList.contains("preview-minimized")) {
-        elWorkspace.classList.remove("preview-minimized");
+    // 3. Live Preview Minimize Toggle
+    if (e.target.closest("#btn-minimize-preview")) {
+      e.stopPropagation();
+      const workspace = document.querySelector(".workspace");
+      if (workspace) {
+        workspace.classList.toggle("preview-minimized");
       }
-    });
-  }
+      return;
+    }
+
+    // 4. Click anywhere on minimized preview panel to expand it
+    const previewPanel = e.target.closest(".preview-panel");
+    if (previewPanel) {
+      const workspace = document.querySelector(".workspace");
+      if (workspace && workspace.classList.contains("preview-minimized")) {
+        workspace.classList.remove("preview-minimized");
+      }
+    }
+  });
 }
 
 // ----------------------------------------------------

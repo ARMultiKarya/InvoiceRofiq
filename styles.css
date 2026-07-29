@@ -946,6 +946,14 @@ textarea:focus {
   width: 64px;
 }
 
+@media (max-width: 768px) {
+  .app-container.sidebar-minimized .sidebar {
+    width: 100%;
+    max-height: 64px;
+    overflow: hidden;
+  }
+}
+
 .app-container.sidebar-minimized .sidebar .brand-info,
 .app-container.sidebar-minimized .sidebar #btn-new-invoice .btn-text,
 .app-container.sidebar-minimized .sidebar .section-title,
