@@ -33,10 +33,13 @@
             <h2>Kwitansiku</h2>
             <span>v1.0.0</span>
           </div>
+          <button id="btn-minimize-sidebar" class="btn btn-icon btn-secondary btn-xs" title="Minimize / Perluas Sidebar Kwitansiku" style="margin-left: auto;">
+            <svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" stroke-width="2.5" fill="none" style="transition: transform 0.3s ease;"><polyline points="15 18 9 12 15 6"></polyline></svg>
+          </button>
         </div>
         <button id="btn-new-invoice" class="btn btn-primary btn-icon">
           <svg viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
-          Invoice Baru
+          <span class="btn-text">Invoice Baru</span>
         </button>
       </div>
 
@@ -79,9 +82,12 @@
         <div class="editor-forms">
           
           <!-- Metadata Section -->
-          <div class="form-group-card">
-            <div class="card-header">
+          <div class="form-group-card collapsible-card">
+            <div class="card-header flex-between card-toggle-header" style="cursor: pointer;">
               <h3>Rincian Kwitansi</h3>
+              <button class="btn-card-collapse btn btn-icon btn-secondary btn-xs" title="Minimize / Perluas Rincian Kwitansi">
+                <svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" stroke-width="2.5" fill="none" style="transition: transform 0.3s ease;"><polyline points="6 9 12 15 18 9"></polyline></svg>
+              </button>
             </div>
             <div class="card-body grid-3">
               <div class="field">
@@ -102,9 +108,12 @@
           <!-- Company & Client Info -->
           <div class="form-group-card grid-2-cols">
             <!-- Company Info -->
-            <div class="form-group-inner-card">
-              <div class="card-header">
+            <div class="form-group-inner-card collapsible-card">
+              <div class="card-header flex-between card-toggle-header" style="cursor: pointer;">
                 <h3>Informasi Perusahaan</h3>
+                <button class="btn-card-collapse btn btn-icon btn-secondary btn-xs" title="Minimize / Perluas Informasi Perusahaan">
+                  <svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" stroke-width="2.5" fill="none" style="transition: transform 0.3s ease;"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                </button>
               </div>
               <div class="card-body">
                 <div class="field">
@@ -119,7 +128,7 @@
                   <select id="company-logo-select">
                     <option value="kwt">Logo KWT Sido Makmur</option>
                     <option value="hamdan">Logo Hamdan Tahu Tempe</option>
-                    <option value="default">Logo Default (SVG/Teks)</option>
+                    <option value="default">Tanpa Logo</option>
                     <option value="custom">Unggah Logo Kustom...</option>
                   </select>
                 </div>
@@ -146,9 +155,12 @@
             </div>
 
             <!-- Client Info -->
-            <div class="form-group-inner-card">
-              <div class="card-header">
+            <div class="form-group-inner-card collapsible-card">
+              <div class="card-header flex-between card-toggle-header" style="cursor: pointer;">
                 <h3>Tagihan Kepada</h3>
+                <button class="btn-card-collapse btn btn-icon btn-secondary btn-xs" title="Minimize / Perluas Tagihan Kepada">
+                  <svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" stroke-width="2.5" fill="none" style="transition: transform 0.3s ease;"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                </button>
               </div>
               <div class="card-body">
                 <div class="field">
@@ -168,13 +180,18 @@
           </div>
 
           <!-- Items Grid -->
-          <div class="form-group-card">
-            <div class="card-header flex-between">
+          <div class="form-group-card collapsible-card">
+            <div class="card-header flex-between card-toggle-header" style="cursor: pointer;">
               <h3>Daftar Barang / Jasa</h3>
-              <button id="btn-add-item" class="btn btn-secondary btn-sm btn-icon">
-                <svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
-                Tambah Item
-              </button>
+              <div style="display: flex; align-items: center; gap: 8px;">
+                <button id="btn-add-item" class="btn btn-secondary btn-sm btn-icon">
+                  <svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+                  Tambah Item
+                </button>
+                <button class="btn-card-collapse btn btn-icon btn-secondary btn-xs" title="Minimize / Perluas Daftar Barang">
+                  <svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" stroke-width="2.5" fill="none" style="transition: transform 0.3s ease;"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                </button>
+              </div>
             </div>
             <div class="card-body table-responsive">
               <table class="editor-table">
@@ -198,23 +215,31 @@
           <!-- Notes & Signature -->
           <div class="form-group-card grid-2-cols">
             <!-- Notes -->
-            <div class="form-group-inner-card">
-              <div class="card-header">
-                <h3>Keterangan Tambahan</h3>
+            <div class="form-group-inner-card collapsible-card">
+              <div class="card-header flex-between card-toggle-header" style="cursor: pointer;">
+                <h3>Catatan / Keterangan Pengiriman</h3>
+                <button class="btn-card-collapse btn btn-icon btn-secondary btn-xs" title="Minimize / Perluas Catatan">
+                  <svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" stroke-width="2.5" fill="none" style="transition: transform 0.3s ease;"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                </button>
               </div>
               <div class="card-body">
                 <div class="field">
-                  <label for="inv-notes">Keterangan / Detail Pengiriman</label>
-                  <textarea id="inv-notes" rows="4" placeholder="PENGIRIMAN KE SPPG NGADIHARJO, BOROBUDUR, 16 JULI 2026"></textarea>
+                  <label for="inv-notes">Keterangan Pengiriman</label>
+                  <textarea id="inv-notes" rows="4" placeholder="PENGIRIMAN TANGGAL ..."></textarea>
                 </div>
               </div>
             </div>
 
             <!-- Signature Pad -->
-            <div class="form-group-inner-card">
-              <div class="card-header flex-between">
+            <div class="form-group-inner-card collapsible-card">
+              <div class="card-header flex-between card-toggle-header" style="cursor: pointer;">
                 <h3>Tanda Tangan Supplier</h3>
-                <button id="btn-clear-sig" class="btn btn-secondary btn-xs">Hapus Tanda Tangan</button>
+                <div style="display: flex; align-items: center; gap: 6px;">
+                  <button id="btn-clear-sig" class="btn btn-secondary btn-xs">Hapus Tanda Tangan</button>
+                  <button class="btn-card-collapse btn btn-icon btn-secondary btn-xs" title="Minimize / Perluas Tanda Tangan">
+                    <svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" stroke-width="2.5" fill="none" style="transition: transform 0.3s ease;"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                  </button>
+                </div>
               </div>
               <div class="card-body">
                 <div class="signature-canvas-container">
@@ -241,7 +266,12 @@
       <!-- Live Preview Panel (Right) -->
       <section class="preview-panel">
         <div class="preview-toolbar no-print">
-          <span class="preview-status">Live Preview (A4 Page Aspect Ratio)</span>
+          <div style="display: flex; align-items: center; gap: 8px;">
+            <button id="btn-minimize-preview" class="btn btn-icon btn-secondary btn-xs" title="Minimize/Maximize Pratinjau">
+              <svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" stroke-width="2.5" fill="none" style="transition: transform 0.3s ease;"><polyline points="15 18 9 12 15 6"></polyline></svg>
+            </button>
+            <span class="preview-status">Pratinjau</span>
+          </div>
           <div class="zoom-controls">
             <button id="btn-zoom-out" class="btn btn-icon btn-secondary btn-xs">
               <svg viewBox="0 0 24 24" width="12" height="12" stroke="currentColor" stroke-width="2.5" fill="none"><line x1="5" y1="12" x2="19" y2="12"></line></svg>
@@ -263,28 +293,6 @@
               <!-- Company Logo & Brand -->
               <div class="logo-box">
                 <div class="logo-bg-square">
-                  <svg viewBox="0 0 200 200" class="logo-svg" id="view-logo-svg">
-                    <rect x="10" y="10" width="180" height="180" rx="15" fill="#FFF" stroke="#EAECEE" stroke-width="1"/>
-                    
-                    <!-- Peapods (edamame) -->
-                    <g transform="translate(15, 10)">
-                      <!-- Pod 1 -->
-                      <path d="M45 110 Q70 65 115 75 Q150 82 165 120 Q140 145 105 130 Q70 120 45 110 Z" fill="#6FB76F" stroke="#3A703A" stroke-width="3" opacity="0.95"/>
-                      <circle cx="80" cy="100" r="10" fill="#BDF2BD" stroke="#3A703A" stroke-width="2"/>
-                      <circle cx="108" cy="108" r="10" fill="#BDF2BD" stroke="#3A703A" stroke-width="2"/>
-                      <circle cx="138" cy="114" r="10" fill="#BDF2BD" stroke="#3A703A" stroke-width="2"/>
-                      
-                      <!-- Pod 2 -->
-                      <path d="M65 90 Q90 45 135 55 Q170 62 185 100 Q160 125 125 110 Q90 100 65 90 Z" fill="#4B954B" stroke="#255025" stroke-width="3" opacity="0.95"/>
-                      <circle cx="100" cy="80" r="10" fill="#A7EBA7" stroke="#255025" stroke-width="2"/>
-                      <circle cx="128" cy="88" r="10" fill="#A7EBA7" stroke="#255025" stroke-width="2"/>
-                      <circle cx="158" cy="94" r="10" fill="#A7EBA7" stroke="#255025" stroke-width="2"/>
-                    </g>
-                  </svg>
-                  <div class="logo-text" id="view-logo-text">
-                    <span class="logo-text-primary">KWT SIDO</span>
-                    <span class="logo-text-secondary">MAKMUR</span>
-                  </div>
                   <img id="view-logo-img" src="" alt="Logo" style="display: none; max-width: 100%; max-height: 100%; object-fit: contain;">
                 </div>
               </div>
