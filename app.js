@@ -77,9 +77,11 @@ const elViewRef = document.getElementById("view-ref");
 const elViewDate = document.getElementById("view-date");
 const elViewDueDate = document.getElementById("view-due-date");
 const elViewCompanyName = document.getElementById("view-company-name");
-const elViewLogoSvg = document.getElementById("view-logo-svg");
-const elViewLogoText = document.getElementById("view-logo-text");
 const elViewLogoImg = document.getElementById("view-logo-img");
+const elViewLogoBox = document.querySelector(".logo-box");
+const elBtnMinimizePreview = document.getElementById("btn-minimize-preview");
+const elWorkspace = document.querySelector(".workspace");
+const elPreviewPanel = document.querySelector(".preview-panel");
 const elViewCompanyAddress = document.getElementById("view-company-address");
 const elViewCompanyPhone = document.getElementById("view-company-phone");
 const elViewCompanyEmail = document.getElementById("view-company-email");
@@ -406,10 +408,13 @@ function clearFormAndPreview() {
   elViewDate.innerText = "-";
   elViewDueDate.innerText = "-";
   elViewCompanyName.innerText = "-";
-  elViewLogoSvg.style.display = "block";
-  elViewLogoText.style.display = "flex";
-  elViewLogoImg.style.display = "none";
-  elViewLogoImg.src = "";
+  if (elViewLogoImg) {
+    elViewLogoImg.style.display = "none";
+    elViewLogoImg.src = "";
+  }
+  if (elViewLogoBox) {
+    elViewLogoBox.style.display = "none";
+  }
   elViewCompanyAddress.innerText = "-";
   elViewCompanyPhone.innerText = "-";
   elViewCompanyEmail.innerText = "-";
@@ -568,14 +573,12 @@ function updatePreview() {
   if (activeInv.logo) {
     elViewLogoImg.src = activeInv.logo;
     elViewLogoImg.style.display = "block";
-    elViewLogoSvg.style.display = "none";
-    elViewLogoText.style.display = "none";
+    elViewLogoBox.style.display = "flex";
     elBtnRemoveLogo.style.display = "inline-block";
   } else {
     elViewLogoImg.src = "";
     elViewLogoImg.style.display = "none";
-    elViewLogoSvg.style.display = "block";
-    elViewLogoText.style.display = "flex";
+    elViewLogoBox.style.display = "none";
     elBtnRemoveLogo.style.display = "none";
   }
 
@@ -845,7 +848,7 @@ function bindFormFields() {
         current.logo = LOGO_KWT_SIDO_MAKMUR;
         elCustomLogoUploadContainer.style.display = "none";
       } else if (val === "hamdan") {
-        current.logo = LOGO_HAMDAN_TAHU_TEMPE;
+        current.logo = LOGO_KWT_SIDO_MAKMUR;
         elCustomLogoUploadContainer.style.display = "none";
       } else if (val === "default") {
         current.logo = null;
@@ -870,6 +873,46 @@ function bindFormFields() {
       updatePreview();
     }
   });
+
+  // Sidebar "Kwitansiku" Minimize Toggle
+  const elBtnMinimizeSidebar = document.getElementById("btn-minimize-sidebar");
+  const elAppContainer = document.querySelector(".app-container");
+  if (elBtnMinimizeSidebar && elAppContainer) {
+    elBtnMinimizeSidebar.addEventListener("click", (e) => {
+      e.stopPropagation();
+      elAppContainer.classList.toggle("sidebar-minimized");
+    });
+  }
+
+  // Collapsible Form Section Cards Toggle (including "Rincian Kwitansi")
+  document.querySelectorAll(".card-toggle-header").forEach(header => {
+    header.addEventListener("click", (e) => {
+      if (e.target.closest("button") && !e.target.closest(".btn-card-collapse")) {
+        return;
+      }
+      const card = header.closest(".collapsible-card");
+      if (card) {
+        card.classList.toggle("collapsed");
+      }
+    });
+  });
+
+  // Live Preview Minimize Toggle
+  if (elBtnMinimizePreview) {
+    elBtnMinimizePreview.addEventListener("click", (e) => {
+      e.stopPropagation(); // Prevent triggering parent click handler
+      elWorkspace.classList.toggle("preview-minimized");
+    });
+  }
+
+  // Also toggle back if the user clicks anywhere on the minimized preview panel
+  if (elPreviewPanel) {
+    elPreviewPanel.addEventListener("click", () => {
+      if (elWorkspace.classList.contains("preview-minimized")) {
+        elWorkspace.classList.remove("preview-minimized");
+      }
+    });
+  }
 }
 
 // ----------------------------------------------------

@@ -162,6 +162,7 @@ body {
   grid-template-columns: 1.1fr 0.9fr;
   height: 100vh;
   overflow: hidden;
+  transition: grid-template-columns 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 /* Editor Panel (Left side scrolling) */
@@ -934,6 +935,115 @@ textarea:focus {
     min-height: unset;
     padding: 10mm 8mm;
   }
+}
+
+/* Sidebar Minimized State */
+.sidebar {
+  transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.app-container.sidebar-minimized .sidebar {
+  width: 64px;
+}
+
+.app-container.sidebar-minimized .sidebar .brand-info,
+.app-container.sidebar-minimized .sidebar #btn-new-invoice .btn-text,
+.app-container.sidebar-minimized .sidebar .section-title,
+.app-container.sidebar-minimized .sidebar .invoice-item-title,
+.app-container.sidebar-minimized .sidebar .invoice-item-meta,
+.app-container.sidebar-minimized .sidebar .btn-delete-invoice-action,
+.app-container.sidebar-minimized .sidebar .sidebar-footer {
+  display: none !important;
+}
+
+.app-container.sidebar-minimized .sidebar .sidebar-header {
+  padding: 1.25rem 0.5rem;
+  align-items: center;
+}
+
+.app-container.sidebar-minimized .sidebar .brand {
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  width: 100%;
+}
+
+.app-container.sidebar-minimized .sidebar #btn-minimize-sidebar {
+  margin-left: 0 !important;
+}
+
+.app-container.sidebar-minimized .sidebar #btn-minimize-sidebar svg {
+  transform: rotate(180deg);
+}
+
+.app-container.sidebar-minimized .sidebar #btn-new-invoice {
+  padding: 0.6rem;
+  justify-content: center;
+}
+
+.app-container.sidebar-minimized .sidebar .invoice-item-btn {
+  padding: 0.6rem;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Collapsible Card Section Styles */
+.collapsible-card {
+  transition: all 0.25s ease;
+}
+
+.collapsible-card .card-header {
+  user-select: none;
+  transition: background 0.2s ease;
+}
+
+.card-toggle-header:hover {
+  opacity: 0.9;
+}
+
+.collapsible-card.collapsed .card-body {
+  display: none !important;
+}
+
+.collapsible-card.collapsed .btn-card-collapse svg {
+  transform: rotate(-90deg);
+}
+
+/* Layout transition and minimized states for Live Preview */
+.workspace.preview-minimized {
+  grid-template-columns: 1fr 50px;
+}
+
+.workspace.preview-minimized .preview-panel {
+  background-color: var(--bg-sidebar);
+  border-left: 1px solid var(--border-color);
+  cursor: pointer;
+}
+
+.workspace.preview-minimized .preview-panel .preview-toolbar {
+  padding: 0.75rem 0;
+  justify-content: center;
+  border-bottom: none;
+}
+
+.workspace.preview-minimized .preview-panel .preview-toolbar > *:not(div) {
+  display: none;
+}
+
+.workspace.preview-minimized .preview-panel .preview-toolbar div {
+  justify-content: center;
+}
+
+.workspace.preview-minimized .preview-panel .preview-toolbar span.preview-status {
+  display: none;
+}
+
+.workspace.preview-minimized .preview-panel .invoice-sheet-container {
+  display: none;
+}
+
+.workspace.preview-minimized #btn-minimize-preview svg {
+  transform: rotate(180deg);
 }
 
 /* PRINT MEDIA QUERIES (Crucial to make it match target page exactly) */
