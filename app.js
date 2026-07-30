@@ -116,6 +116,7 @@ const elBtnPrint = document.getElementById("btn-print");
 const elBtnDownloadJpg = document.getElementById("btn-download-jpg");
 const elBtnExport = document.getElementById("btn-export-backup");
 const elBtnImport = document.getElementById("btn-import-backup");
+const elBtnResetData = document.getElementById("btn-reset-data");
 const elInputImport = document.getElementById("input-import-file");
 
 // Form Controls
@@ -267,8 +268,15 @@ function initApp() {
   if (stored) {
     try {
       invoices = JSON.parse(stored);
+      // Auto-migrate: Check if PT. AR MULTI KARYA invoice exists in user's saved list
+      const hasARMK = invoices.some(inv => inv.company?.name === "PT. AR MULTI KARYA" || inv.id === "inv-example-armk");
+      if (!hasARMK) {
+        invoices.unshift(PREFILLED_DATA[0]);
+        saveToStorage();
+      }
     } catch (e) {
       invoices = [...PREFILLED_DATA];
+      saveToStorage();
     }
   } else {
     invoices = [...PREFILLED_DATA];
@@ -276,7 +284,8 @@ function initApp() {
   }
 
   if (invoices.length > 0) {
-    activeInvoiceId = invoices[0].id;
+    const armkInvoice = invoices.find(inv => inv.company?.name === "PT. AR MULTI KARYA");
+    activeInvoiceId = armkInvoice ? armkInvoice.id : invoices[0].id;
   }
   
   renderInvoiceList();
@@ -1297,6 +1306,20 @@ elInputImport.addEventListener("change", (e) => {
   };
   reader.readAsText(file);
 });
+
+if (elBtnResetData) {
+  elBtnResetData.addEventListener("click", () => {
+    if (confirm("Apakah Anda yakin ingin me-reset data kwitansi dan memperbarui daftar ke PT. AR MULTI KARYA?")) {
+      localStorage.removeItem("kwitansiku_invoices");
+      invoices = [...PREFILLED_DATA];
+      activeInvoiceId = invoices[0].id;
+      saveToStorage();
+      renderInvoiceList();
+      loadActiveInvoice();
+      alert("Data kwitansi berhasil diperbarui ke PT. AR MULTI KARYA!");
+    }
+  });
+}
 
 // Run
 initApp();
