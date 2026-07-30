@@ -910,7 +910,8 @@ function bindFormFields() {
       } else if (val === "kwt") {
         current.logo = LOGO_KWT_SIDO_MAKMUR;
         elCustomLogoUploadContainer.style.display = "none";
-      } else if (val === "hamdan") {`n        current.logo = LOGO_HAMDAN_TAHU_TEMPE;
+      } else if (val === "hamdan") {
+        current.logo = LOGO_HAMDAN_TAHU_TEMPE;
         elCustomLogoUploadContainer.style.display = "none";
       } else if (val === "default") {
         current.logo = null;
