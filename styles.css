@@ -1140,3 +1140,50 @@ textarea:focus {
     content: none !important;
   }
 }
+
+/* Sidebar Minimized State */
+.sidebar {
+  transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.sidebar.minimized {
+  width: 70px !important;
+}
+
+.sidebar.minimized .brand-info,
+.sidebar.minimized .section-title,
+.sidebar.minimized .invoice-item-meta,
+.sidebar.minimized .btn-text,
+.sidebar.minimized .sidebar-footer {
+  display: none !important;
+}
+
+.sidebar.minimized .sidebar-header {
+  padding: 1rem 0.5rem;
+}
+
+.sidebar.minimized .invoice-item-btn {
+  justify-content: center;
+  padding: 0.5rem;
+}
+
+/* Preview Panel Minimized State */
+.preview-panel {
+  transition: flex 0.3s cubic-bezier(0.4, 0, 0.2, 1), max-width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.preview-panel.minimized {
+  flex: 0 0 50px !important;
+  max-width: 50px !important;
+  overflow: hidden !important;
+}
+
+.preview-panel.minimized .invoice-sheet-container {
+  display: none !important;
+}
+
+.preview-panel.minimized .preview-status,
+.preview-panel.minimized .zoom-controls {
+  display: none !important;
+}
+

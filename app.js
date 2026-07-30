@@ -756,7 +756,7 @@ function bindFormFields() {
         current.company.address = "TANJUNGSARI, BOROBUDUR";
         current.company.phone = "082138800279";
         current.company.email = "kwtsidomakmur@gmail.com";
-        current.logo = LOGO_KWT_SIDO_MAKMUR;
+        current.logo = LOGO_HAMDAN_TAHU_TEMPE;
         current.signerName = "HAMDAN";
         current.signerRole = "HAMDAN TAHU TEMPE";
         current.showStamp = false;
@@ -1242,6 +1242,61 @@ if (elBtnResetData) {
       renderInvoiceList();
       loadActiveInvoice();
       alert("Data kwitansi berhasil diperbarui ke PT. AR MULTI KARYA!");
+    }
+  });
+}
+
+// Minimize Sidebar Handler
+const elBtnMinimizeSidebar = document.getElementById("btn-minimize-sidebar");
+const elSidebar = document.querySelector(".sidebar");
+if (elBtnMinimizeSidebar && elSidebar) {
+  elBtnMinimizeSidebar.addEventListener("click", () => {
+    elSidebar.classList.toggle("minimized");
+    const svgIcon = elBtnMinimizeSidebar.querySelector("svg");
+    if (svgIcon) {
+      svgIcon.style.transform = elSidebar.classList.contains("minimized") ? "rotate(180deg)" : "rotate(0deg)";
+    }
+  });
+}
+
+// Minimize Preview Handler
+const elBtnMinimizePreview = document.getElementById("btn-minimize-preview");
+const elPreviewPanel = document.querySelector(".preview-panel");
+if (elBtnMinimizePreview && elPreviewPanel) {
+  elBtnMinimizePreview.addEventListener("click", () => {
+    elPreviewPanel.classList.toggle("minimized");
+    const svgIcon = elBtnMinimizePreview.querySelector("svg");
+    if (svgIcon) {
+      svgIcon.style.transform = elPreviewPanel.classList.contains("minimized") ? "rotate(180deg)" : "rotate(0deg)";
+    }
+  });
+}
+
+// Zoom Handlers
+function applyZoom() {
+  if (elInvoiceSheet) {
+    elInvoiceSheet.style.transform = `scale(${zoomLevel})`;
+    elInvoiceSheet.style.transformOrigin = "top center";
+  }
+  if (elZoomValue) {
+    elZoomValue.innerText = `${Math.round(zoomLevel * 100)}%`;
+  }
+}
+
+if (elBtnZoomIn) {
+  elBtnZoomIn.addEventListener("click", () => {
+    if (zoomLevel < 1.5) {
+      zoomLevel += 0.05;
+      applyZoom();
+    }
+  });
+}
+
+if (elBtnZoomOut) {
+  elBtnZoomOut.addEventListener("click", () => {
+    if (zoomLevel > 0.5) {
+      zoomLevel -= 0.05;
+      applyZoom();
     }
   });
 }
