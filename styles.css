@@ -773,10 +773,10 @@ textarea:focus {
 .notes-content {
   font-size: 8.5pt;
   color: #000;
-  text-transform: uppercase;
-  line-height: 1.35;
+  line-height: 1.45;
   font-weight: 500;
   white-space: pre-wrap;
+  text-align: justify;
 }
 
 .terbilang-container {
@@ -870,12 +870,18 @@ textarea:focus {
 
 .company-stamp-overlay {
   position: absolute;
-  top: -42px;
+  top: -45px;
   left: -20px;
   pointer-events: none;
   transform: rotate(-6deg);
-  opacity: 0.90;
+  opacity: 0.95;
   z-index: 5;
+}
+
+.company-stamp-overlay img {
+  width: 145px;
+  height: auto;
+  object-fit: contain;
 }
 
 #view-sig-img {
