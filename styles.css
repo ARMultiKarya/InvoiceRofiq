@@ -56,6 +56,99 @@ body {
   flex-direction: column;
   flex-shrink: 0;
   z-index: 10;
+  transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.sidebar.collapsed {
+  width: 72px;
+}
+
+.sidebar.collapsed .brand-info,
+.sidebar.collapsed #btn-new-invoice span,
+.sidebar.collapsed .section-title,
+.sidebar.collapsed .invoice-item-meta,
+.sidebar.collapsed .sidebar-footer button {
+  display: none !important;
+}
+
+.sidebar.collapsed .sidebar-header {
+  padding: 1rem 0.5rem;
+  align-items: center;
+}
+
+.sidebar.collapsed #btn-minimize-sidebar svg {
+  transform: rotate(180deg);
+}
+
+.sidebar.collapsed #btn-new-invoice {
+  padding: 0.5rem;
+  justify-content: center;
+  width: 42px;
+  height: 42px;
+}
+
+.sidebar.collapsed .invoice-item-btn {
+  padding: 0.75rem 0.25rem;
+  align-items: center;
+  text-align: center;
+}
+
+.sidebar.collapsed .invoice-item-title {
+  font-size: 0.75rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 50px;
+}
+
+.sidebar.collapsed .sidebar-footer {
+  padding: 0.75rem 0.5rem;
+  justify-content: center;
+}
+
+/* Card Collapsible & Minimize Button Styling */
+.btn-card-minimize {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--border-color);
+  color: var(--text-muted);
+  width: 28px;
+  height: 28px;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-card-minimize:hover {
+  background: rgba(255, 255, 255, 0.15);
+  color: var(--text-main);
+}
+
+.btn-card-minimize .minimize-icon {
+  transition: transform 0.3s ease;
+}
+
+.collapsible-card .card-body {
+  transition: max-height 0.3s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s ease, padding 0.3s ease;
+  max-height: 2000px;
+  opacity: 1;
+  overflow: hidden;
+}
+
+.collapsible-card.collapsed .card-body {
+  max-height: 0 !important;
+  opacity: 0 !important;
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
+  margin: 0 !important;
+  border: none !important;
+  pointer-events: none;
+}
+
+.collapsible-card.collapsed .btn-card-minimize .minimize-icon {
+  transform: rotate(-90deg);
 }
 
 .sidebar-header {
@@ -773,10 +866,10 @@ textarea:focus {
 .notes-content {
   font-size: 8.5pt;
   color: #000;
-  line-height: 1.45;
+  line-height: 1.5;
   font-weight: 500;
-  white-space: pre-wrap;
-  text-align: justify;
+  text-align: justify; /* RATA KANAN KIRI AGAR KELIHATAN RAPI */
+  white-space: pre-line; /* PRESERVE ENTER / JARAK PARAGRAF */
 }
 
 .terbilang-container {
@@ -847,7 +940,7 @@ textarea:focus {
   align-items: center;
   text-align: center;
   margin-left: auto;
-  width: 150px;
+  width: 160px;
   position: relative;
 }
 
@@ -868,26 +961,24 @@ textarea:focus {
   position: relative;
 }
 
-.company-stamp-overlay {
-  position: absolute;
-  top: -45px;
-  left: -20px;
-  pointer-events: none;
-  transform: rotate(-6deg);
-  opacity: 0.95;
-  z-index: 5;
-}
-
-.company-stamp-overlay img {
-  width: 145px;
-  height: auto;
-  object-fit: contain;
-}
-
 #view-sig-img {
   max-height: 100%;
   max-width: 100%;
   object-fit: contain;
+  position: relative;
+  z-index: 2;
+}
+
+#view-stamp-img {
+  position: absolute;
+  top: -5px;
+  left: -40px;
+  width: 125px;
+  height: 125px;
+  object-fit: contain;
+  z-index: 1;
+  pointer-events: none;
+  opacity: 0.9;
 }
 
 .sig-line-placeholder {
@@ -954,86 +1045,6 @@ textarea:focus {
     min-height: unset;
     padding: 10mm 8mm;
   }
-}
-
-/* Sidebar Minimized State */
-.sidebar {
-  transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.app-container.sidebar-minimized .sidebar {
-  width: 64px;
-}
-
-@media (max-width: 768px) {
-  .app-container.sidebar-minimized .sidebar {
-    width: 100%;
-    max-height: 64px;
-    overflow: hidden;
-  }
-}
-
-.app-container.sidebar-minimized .sidebar .brand-info,
-.app-container.sidebar-minimized .sidebar #btn-new-invoice .btn-text,
-.app-container.sidebar-minimized .sidebar .section-title,
-.app-container.sidebar-minimized .sidebar .invoice-item-title,
-.app-container.sidebar-minimized .sidebar .invoice-item-meta,
-.app-container.sidebar-minimized .sidebar .btn-delete-invoice-action,
-.app-container.sidebar-minimized .sidebar .sidebar-footer {
-  display: none !important;
-}
-
-.app-container.sidebar-minimized .sidebar .sidebar-header {
-  padding: 1.25rem 0.5rem;
-  align-items: center;
-}
-
-.app-container.sidebar-minimized .sidebar .brand {
-  flex-direction: column;
-  align-items: center;
-  gap: 0.5rem;
-  width: 100%;
-}
-
-.app-container.sidebar-minimized .sidebar #btn-minimize-sidebar {
-  margin-left: 0 !important;
-}
-
-.app-container.sidebar-minimized .sidebar #btn-minimize-sidebar svg {
-  transform: rotate(180deg);
-}
-
-.app-container.sidebar-minimized .sidebar #btn-new-invoice {
-  padding: 0.6rem;
-  justify-content: center;
-}
-
-.app-container.sidebar-minimized .sidebar .invoice-item-btn {
-  padding: 0.6rem;
-  align-items: center;
-  justify-content: center;
-}
-
-/* Collapsible Card Section Styles */
-.collapsible-card {
-  transition: all 0.25s ease;
-}
-
-.collapsible-card .card-header {
-  user-select: none;
-  transition: background 0.2s ease;
-}
-
-.card-toggle-header:hover {
-  opacity: 0.9;
-}
-
-.collapsible-card.collapsed .card-body {
-  display: none !important;
-}
-
-.collapsible-card.collapsed .btn-card-collapse svg {
-  transform: rotate(-90deg);
 }
 
 /* Layout transition and minimized states for Live Preview */
@@ -1140,50 +1151,3 @@ textarea:focus {
     content: none !important;
   }
 }
-
-/* Sidebar Minimized State */
-.sidebar {
-  transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.sidebar.minimized {
-  width: 70px !important;
-}
-
-.sidebar.minimized .brand-info,
-.sidebar.minimized .section-title,
-.sidebar.minimized .invoice-item-meta,
-.sidebar.minimized .btn-text,
-.sidebar.minimized .sidebar-footer {
-  display: none !important;
-}
-
-.sidebar.minimized .sidebar-header {
-  padding: 1rem 0.5rem;
-}
-
-.sidebar.minimized .invoice-item-btn {
-  justify-content: center;
-  padding: 0.5rem;
-}
-
-/* Preview Panel Minimized State */
-.preview-panel {
-  transition: flex 0.3s cubic-bezier(0.4, 0, 0.2, 1), max-width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.preview-panel.minimized {
-  flex: 0 0 50px !important;
-  max-width: 50px !important;
-  overflow: hidden !important;
-}
-
-.preview-panel.minimized .invoice-sheet-container {
-  display: none !important;
-}
-
-.preview-panel.minimized .preview-status,
-.preview-panel.minimized .zoom-controls {
-  display: none !important;
-}
-

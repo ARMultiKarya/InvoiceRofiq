@@ -3,15 +3,12 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
-  <meta http-equiv="Pragma" content="no-cache">
-  <meta http-equiv="Expires" content="0">
   <title>Aplikasi Invoice - Hamdan Tahu Tempe</title>
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Reenie+Beanie&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css?v=1.9.0">
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
   <!-- App Container -->
@@ -20,29 +17,31 @@
     <!-- Left Sidebar: Invoice Manager -->
     <aside class="sidebar no-print">
       <div class="sidebar-header">
-        <div class="brand">
-          <svg class="brand-logo" viewBox="0 0 100 100" width="36" height="36">
-            <rect width="100" height="100" rx="20" fill="#E8F5E9"/>
-            <path d="M30 40 Q40 30 55 35 Q70 40 75 55 Q65 65 50 60 Q35 55 30 40 Z" fill="#4CAF50" opacity="0.85"/>
-            <circle cx="42" cy="42" r="5" fill="#C8E6C9"/>
-            <circle cx="53" cy="47" r="5" fill="#C8E6C9"/>
-            <circle cx="64" cy="52" r="5" fill="#C8E6C9"/>
-            <path d="M40 50 Q50 40 65 45 Q80 50 85 65 Q75 75 60 70 Q45 65 40 50 Z" fill="#2E7D32" opacity="0.9"/>
-            <circle cx="52" cy="52" r="5" fill="#C8E6C9"/>
-            <circle cx="63" cy="57" r="5" fill="#C8E6C9"/>
-            <circle cx="74" cy="62" r="5" fill="#C8E6C9"/>
-          </svg>
-          <div class="brand-info">
-            <h2>Kwitansiku</h2>
-            <span>v1.0.0</span>
+        <div class="brand flex-between" style="width: 100%;">
+          <div style="display: flex; align-items: center; gap: 0.75rem;">
+            <svg class="brand-logo" viewBox="0 0 100 100" width="36" height="36">
+              <rect width="100" height="100" rx="20" fill="#E8F5E9"/>
+              <path d="M30 40 Q40 30 55 35 Q70 40 75 55 Q65 65 50 60 Q35 55 30 40 Z" fill="#4CAF50" opacity="0.85"/>
+              <circle cx="42" cy="42" r="5" fill="#C8E6C9"/>
+              <circle cx="53" cy="47" r="5" fill="#C8E6C9"/>
+              <circle cx="64" cy="52" r="5" fill="#C8E6C9"/>
+              <path d="M40 50 Q50 40 65 45 Q80 50 85 65 Q75 75 60 70 Q45 65 40 50 Z" fill="#2E7D32" opacity="0.9"/>
+              <circle cx="52" cy="52" r="5" fill="#C8E6C9"/>
+              <circle cx="63" cy="57" r="5" fill="#C8E6C9"/>
+              <circle cx="74" cy="62" r="5" fill="#C8E6C9"/>
+            </svg>
+            <div class="brand-info">
+              <h2>Kwitansiku</h2>
+              <span>v1.0.0</span>
+            </div>
           </div>
-          <button id="btn-minimize-sidebar" class="btn btn-icon btn-secondary btn-xs" title="Minimize / Perluas Sidebar Kwitansiku" style="margin-left: auto;">
-            <svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" stroke-width="2.5" fill="none" style="transition: transform 0.3s ease;"><polyline points="15 18 9 12 15 6"></polyline></svg>
+          <button id="btn-minimize-sidebar" class="btn btn-icon btn-secondary btn-xs" title="Minimize/Maximize Kwitansiku Sidebar">
+            <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2.5" fill="none" class="minimize-icon" style="transition: transform 0.3s ease;"><polyline points="15 18 9 12 15 6"></polyline></svg>
           </button>
         </div>
         <button id="btn-new-invoice" class="btn btn-primary btn-icon">
           <svg viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
-          <span class="btn-text">Invoice Baru</span>
+          <span>Invoice Baru</span>
         </button>
       </div>
 
@@ -53,10 +52,9 @@
         </ul>
       </div>
 
-      <div class="sidebar-footer" style="flex-wrap: wrap;">
+      <div class="sidebar-footer">
         <button id="btn-export-backup" class="btn btn-secondary btn-sm">Backup Data</button>
         <button id="btn-import-backup" class="btn btn-secondary btn-sm">Import Data</button>
-        <button id="btn-reset-data" class="btn btn-danger btn-sm" style="width: 100%; margin-top: 4px;">Reset / Update Data</button>
         <input type="file" id="input-import-file" style="display: none;" accept=".json">
       </div>
     </aside>
@@ -87,10 +85,10 @@
           
           <!-- Metadata Section -->
           <div class="form-group-card collapsible-card">
-            <div class="card-header flex-between card-toggle-header" style="cursor: pointer;">
+            <div class="card-header flex-between">
               <h3>Rincian Kwitansi</h3>
-              <button class="btn-card-collapse btn btn-icon btn-secondary btn-xs" title="Minimize / Perluas Rincian Kwitansi">
-                <svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" stroke-width="2.5" fill="none" style="transition: transform 0.3s ease;"><polyline points="6 9 12 15 18 9"></polyline></svg>
+              <button class="btn-card-minimize" title="Minimize/Maximize Section">
+                <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2.5" fill="none" class="minimize-icon"><polyline points="6 9 12 15 18 9"></polyline></svg>
               </button>
             </div>
             <div class="card-body grid-3">
@@ -113,17 +111,17 @@
           <div class="form-group-card grid-2-cols">
             <!-- Company Info -->
             <div class="form-group-inner-card collapsible-card">
-              <div class="card-header flex-between card-toggle-header" style="cursor: pointer;">
+              <div class="card-header flex-between">
                 <h3>Informasi Perusahaan</h3>
-                <button class="btn-card-collapse btn btn-icon btn-secondary btn-xs" title="Minimize / Perluas Informasi Perusahaan">
-                  <svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" stroke-width="2.5" fill="none" style="transition: transform 0.3s ease;"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                <button class="btn-card-minimize" title="Minimize/Maximize Section">
+                  <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2.5" fill="none" class="minimize-icon"><polyline points="6 9 12 15 18 9"></polyline></svg>
                 </button>
               </div>
               <div class="card-body">
                 <div class="field">
                   <label for="company-name">Nama Perusahaan</label>
                   <select id="company-name">
-                    <option value="PT. AR MULTI KARYA">PT. AR MULTI KARYA</option>
+                    <option value="PT AR MULTI KARYA">PT AR MULTI KARYA</option>
                     <option value="KWT SIDO MAKMUR">KWT SIDO MAKMUR</option>
                     <option value="HAMDAN TAHU TEMPE">HAMDAN TAHU TEMPE</option>
                   </select>
@@ -131,7 +129,7 @@
                 <div class="field">
                   <label for="company-logo-select">Logo Perusahaan</label>
                   <select id="company-logo-select">
-                    <option value="ar_multi_karya">Logo PT. AR MULTI KARYA</option>
+                    <option value="ar_multi_karya">Logo PT AR Multi Karya</option>
                     <option value="kwt">Logo KWT Sido Makmur</option>
                     <option value="hamdan">Logo Hamdan Tahu Tempe</option>
                     <option value="default">Tanpa Logo</option>
@@ -147,7 +145,7 @@
                 </div>
                 <div class="field">
                   <label for="company-address">Alamat</label>
-                  <textarea id="company-address" rows="2" placeholder="PUTON, TUKSONGO, BOROBUDUR MAGELANG"></textarea>
+                  <textarea id="company-address" rows="2" placeholder="PUTON, TUKSONGO, BOROBUDUR"></textarea>
                 </div>
                 <div class="field">
                   <label for="company-phone">Telepon</label>
@@ -155,17 +153,17 @@
                 </div>
                 <div class="field">
                   <label for="company-email">Email</label>
-                  <input type="email" id="company-email" placeholder="kwtsidomakmur@gmail.com">
+                  <input type="email" id="company-email" placeholder="armultikarya@gmail.com">
                 </div>
               </div>
             </div>
 
             <!-- Client Info -->
             <div class="form-group-inner-card collapsible-card">
-              <div class="card-header flex-between card-toggle-header" style="cursor: pointer;">
+              <div class="card-header flex-between">
                 <h3>Tagihan Kepada</h3>
-                <button class="btn-card-collapse btn btn-icon btn-secondary btn-xs" title="Minimize / Perluas Tagihan Kepada">
-                  <svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" stroke-width="2.5" fill="none" style="transition: transform 0.3s ease;"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                <button class="btn-card-minimize" title="Minimize/Maximize Section">
+                  <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2.5" fill="none" class="minimize-icon"><polyline points="6 9 12 15 18 9"></polyline></svg>
                 </button>
               </div>
               <div class="card-body">
@@ -187,15 +185,15 @@
 
           <!-- Items Grid -->
           <div class="form-group-card collapsible-card">
-            <div class="card-header flex-between card-toggle-header" style="cursor: pointer;">
+            <div class="card-header flex-between">
               <h3>Daftar Barang / Jasa</h3>
               <div style="display: flex; align-items: center; gap: 8px;">
                 <button id="btn-add-item" class="btn btn-secondary btn-sm btn-icon">
                   <svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
                   Tambah Item
                 </button>
-                <button class="btn-card-collapse btn btn-icon btn-secondary btn-xs" title="Minimize / Perluas Daftar Barang">
-                  <svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" stroke-width="2.5" fill="none" style="transition: transform 0.3s ease;"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                <button class="btn-card-minimize" title="Minimize/Maximize Section">
+                  <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2.5" fill="none" class="minimize-icon"><polyline points="6 9 12 15 18 9"></polyline></svg>
                 </button>
               </div>
             </div>
@@ -222,28 +220,28 @@
           <div class="form-group-card grid-2-cols">
             <!-- Notes -->
             <div class="form-group-inner-card collapsible-card">
-              <div class="card-header flex-between card-toggle-header" style="cursor: pointer;">
-                <h3>Catatan / Keterangan Pengiriman</h3>
-                <button class="btn-card-collapse btn btn-icon btn-secondary btn-xs" title="Minimize / Perluas Catatan">
-                  <svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" stroke-width="2.5" fill="none" style="transition: transform 0.3s ease;"><polyline points="6 9 12 15 18 9"></polyline></svg>
+              <div class="card-header flex-between">
+                <h3>Catatan / Keterangan Pembayaran</h3>
+                <button class="btn-card-minimize" title="Minimize/Maximize Section">
+                  <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2.5" fill="none" class="minimize-icon"><polyline points="6 9 12 15 18 9"></polyline></svg>
                 </button>
               </div>
               <div class="card-body">
                 <div class="field">
-                  <label for="inv-notes">Keterangan Pengiriman</label>
-                  <textarea id="inv-notes" rows="4" placeholder="PENGIRIMAN TANGGAL ..."></textarea>
+                  <label for="inv-notes">Keterangan / Pembayaran</label>
+                  <textarea id="inv-notes" rows="5" placeholder="PENGIRIMAN TANGGAL ..."></textarea>
                 </div>
               </div>
             </div>
 
-            <!-- Signature Pad -->
+            <!-- Signature Pad & Stamp -->
             <div class="form-group-inner-card collapsible-card">
-              <div class="card-header flex-between card-toggle-header" style="cursor: pointer;">
-                <h3>Tanda Tangan Supplier</h3>
-                <div style="display: flex; align-items: center; gap: 6px;">
+              <div class="card-header flex-between">
+                <h3>Tanda Tangan & Stempel Supplier</h3>
+                <div style="display: flex; align-items: center; gap: 8px;">
                   <button id="btn-clear-sig" class="btn btn-secondary btn-xs">Hapus Tanda Tangan</button>
-                  <button class="btn-card-collapse btn btn-icon btn-secondary btn-xs" title="Minimize / Perluas Tanda Tangan">
-                    <svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" stroke-width="2.5" fill="none" style="transition: transform 0.3s ease;"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                  <button class="btn-card-minimize" title="Minimize/Maximize Section">
+                    <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2.5" fill="none" class="minimize-icon"><polyline points="6 9 12 15 18 9"></polyline></svg>
                   </button>
                 </div>
               </div>
@@ -252,21 +250,27 @@
                   <canvas id="signature-pad" width="300" height="120"></canvas>
                   <span class="canvas-placeholder">Gambar Tanda Tangan di Sini</span>
                 </div>
+                <div class="field mt-2">
+                  <label for="company-stamp-select">Stempel Perusahaan</label>
+                  <select id="company-stamp-select">
+                    <option value="ar_multi_karya">Stempel PT AR Multi Karya</option>
+                    <option value="default">Tanpa Stempel</option>
+                    <option value="custom">Unggah Stempel Kustom...</option>
+                  </select>
+                </div>
+                <div class="field" id="custom-stamp-upload-container" style="display: none; margin-top: 8px;">
+                  <label for="company-stamp-input">Unggah File Stempel</label>
+                  <input type="file" id="company-stamp-input" accept="image/*">
+                </div>
                 <div class="grid-2 mt-2">
                   <div class="field">
-                    <label for="signer-name">Nama Supplier / Penanggung Jawab</label>
+                    <label for="signer-name">Nama Direktur / Supplier</label>
                     <input type="text" id="signer-name" placeholder="AHMAD ROFIQ">
                   </div>
                   <div class="field">
                     <label for="signer-role">Jabatan / Divisi</label>
                     <input type="text" id="signer-role" placeholder="Direktur">
                   </div>
-                </div>
-                <div class="field mt-2" style="margin-top: 10px;">
-                  <label for="show-stamp-checkbox" style="display: flex; align-items: center; gap: 8px; cursor: pointer; text-transform: none; font-size: 0.85rem; color: var(--text-main);">
-                    <input type="checkbox" id="show-stamp-checkbox" checked style="width: 16px; height: 16px; cursor: pointer;">
-                    <span>Tampilkan Stempel Perusahaan (PT. AR MULTI KARYA)</span>
-                  </label>
                 </div>
               </div>
             </div>
@@ -340,10 +344,10 @@
               <div class="address-col border-top-blue">
                 <h2 class="section-heading">Informasi Perusahaan</h2>
                 <div class="address-card">
-                  <h3 class="company-title-view" id="view-company-name">HAMDAN TAHU TEMPE</h3>
-                  <p id="view-company-address" class="address-text">TANJUNGSARI, BOROBUDUR, MAGELANG</p>
+                  <h3 class="company-title-view" id="view-company-name">PT AR MULTI KARYA</h3>
+                  <p id="view-company-address" class="address-text">PUTON, TUKSONGO, BOROBUDUR</p>
                   <p class="contact-text">Telp: <span id="view-company-phone">082138800279</span></p>
-                  <p class="contact-text">Email: <span id="view-company-email">kwtsidomakmur@gmail.com</span></p>
+                  <p class="contact-text">Email: <span id="view-company-email">armultikarya@gmail.com</span></p>
                 </div>
               </div>
 
@@ -381,9 +385,11 @@
               <!-- Left Footer: Notes & Indonesian Terbilang -->
               <div class="footer-left">
                 <div class="notes-container border-top-blue-light">
-                  <h3 class="section-heading-sm">KETERANGAN</h3>
+                  <h3 class="section-heading-sm">CATATAN / KETERANGAN</h3>
                   <div id="view-notes" class="notes-content">
-                    PENGIRIMAN KE SPPG NGADIHARJO, BOROBUDUR, 16 JULI 2026
+                    - Pembayaran dapat dilakukan melalui:
+                    Rekening Mandiri 185-00-1062455-6 a.n PT. AR MULTI KARYA
+                    - Harap konfirmasi Setelah Melakukan pembayaran dengan mengirimkan Bukti Transfer ke emial armultikarya@gmai.com atau whatsapp 082138800279 untuk Mendapatkan Kwitansi pembayaran
                   </div>
                 </div>
                 
@@ -414,16 +420,14 @@
 
                 <!-- Signature Section -->
                 <div class="signature-section-view">
-                  <span class="sig-title">SUPPLIER / PERUSAHAAN</span>
+                  <span class="sig-title" id="view-sig-title">DIREKTUR</span>
                   <div class="sig-image-container">
                     <img id="view-sig-img" src="" alt="Tanda Tangan" style="display: none;">
+                    <img id="view-stamp-img" src="stempel_ar_multi_karya-removebg-preview.png" alt="Stempel Perusahaan" style="display: none;">
                     <div id="view-sig-placeholder" class="sig-line-placeholder"></div>
-                    <div id="view-stamp-container" class="company-stamp-overlay" style="display: none;">
-                      <img id="view-stamp-img" src="stempel_ar_multi_karya-removebg-preview.png" alt="Stempel Perusahaan" style="width: 140px; height: auto; object-fit: contain;">
-                    </div>
                   </div>
                   <div class="sig-signer-name underline-text-thin" id="view-signer-name">AHMAD ROFIQ</div>
-                  <div class="sig-signer-role" id="view-signer-role">Direktur</div>
+                  <div class="sig-signer-role" id="view-signer-role">PT. AR MULTI KARYA</div>
                 </div>
 
               </div>
@@ -438,6 +442,6 @@
   </div>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
-  <script src="app.js?v=1.9.0"></script>
+  <script src="app.js"></script>
 </body>
 </html>
