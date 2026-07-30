@@ -776,6 +776,7 @@ textarea:focus {
   text-transform: uppercase;
   line-height: 1.35;
   font-weight: 500;
+  white-space: pre-wrap;
 }
 
 .terbilang-container {
@@ -847,6 +848,7 @@ textarea:focus {
   text-align: center;
   margin-left: auto;
   width: 150px;
+  position: relative;
 }
 
 .sig-title {
@@ -858,11 +860,22 @@ textarea:focus {
 
 .sig-image-container {
   height: 60px;
-  width: 120px;
+  width: 130px;
   display: flex;
   align-items: center;
   justify-content: center;
   margin: 4px 0;
+  position: relative;
+}
+
+.company-stamp-overlay {
+  position: absolute;
+  top: -42px;
+  left: -20px;
+  pointer-events: none;
+  transform: rotate(-6deg);
+  opacity: 0.90;
+  z-index: 5;
 }
 
 #view-sig-img {

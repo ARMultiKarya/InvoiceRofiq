@@ -122,6 +122,7 @@
                 <div class="field">
                   <label for="company-name">Nama Perusahaan</label>
                   <select id="company-name">
+                    <option value="PT. AR MULTI KARYA">PT. AR MULTI KARYA</option>
                     <option value="KWT SIDO MAKMUR">KWT SIDO MAKMUR</option>
                     <option value="HAMDAN TAHU TEMPE">HAMDAN TAHU TEMPE</option>
                   </select>
@@ -129,6 +130,7 @@
                 <div class="field">
                   <label for="company-logo-select">Logo Perusahaan</label>
                   <select id="company-logo-select">
+                    <option value="ar_multi_karya">Logo PT. AR MULTI KARYA</option>
                     <option value="kwt">Logo KWT Sido Makmur</option>
                     <option value="hamdan">Logo Hamdan Tahu Tempe</option>
                     <option value="default">Tanpa Logo</option>
@@ -251,13 +253,19 @@
                 </div>
                 <div class="grid-2 mt-2">
                   <div class="field">
-                    <label for="signer-name">Nama Supplier</label>
-                    <input type="text" id="signer-name" placeholder="SITI ZULIKAH">
+                    <label for="signer-name">Nama Supplier / Penanggung Jawab</label>
+                    <input type="text" id="signer-name" placeholder="AHMAD ROFIQ">
                   </div>
                   <div class="field">
                     <label for="signer-role">Jabatan / Divisi</label>
-                    <input type="text" id="signer-role" placeholder="KWT SIDO MAKMUR">
+                    <input type="text" id="signer-role" placeholder="Direktur">
                   </div>
+                </div>
+                <div class="field mt-2" style="margin-top: 10px;">
+                  <label for="show-stamp-checkbox" style="display: flex; align-items: center; gap: 8px; cursor: pointer; text-transform: none; font-size: 0.85rem; color: var(--text-main);">
+                    <input type="checkbox" id="show-stamp-checkbox" checked style="width: 16px; height: 16px; cursor: pointer;">
+                    <span>Tampilkan Stempel Perusahaan (PT. AR MULTI KARYA)</span>
+                  </label>
                 </div>
               </div>
             </div>
@@ -405,13 +413,84 @@
 
                 <!-- Signature Section -->
                 <div class="signature-section-view">
-                  <span class="sig-title">SUPPLIER</span>
+                  <span class="sig-title">SUPPLIER / PERUSAHAAN</span>
                   <div class="sig-image-container">
                     <img id="view-sig-img" src="" alt="Tanda Tangan" style="display: none;">
                     <div id="view-sig-placeholder" class="sig-line-placeholder"></div>
+                    <div id="view-stamp-container" class="company-stamp-overlay" style="display: none;">
+                      <svg viewBox="0 0 240 280" width="125" height="146" class="stamp-svg">
+                        <g>
+                          <!-- Outer Hexagonal Frame (Dark Charcoal / Black) -->
+                          <path d="M 120,12 
+                                   C 140,12 185,35 205,48 
+                                   C 220,58 222,80 222,105 
+                                   L 222,175 
+                                   C 222,200 205,225 185,238 
+                                   L 120,270 
+                                   L 55,238 
+                                   C 35,225 18,200 18,175 
+                                   L 18,105 
+                                   C 18,80 20,58 35,48 Z" 
+                                fill="none" stroke="#1a1e24" stroke-width="6" stroke-linejoin="round" stroke-linecap="round"/>
+
+                          <!-- Inner Accent Borders -->
+                          <!-- Left Blue Accent Line -->
+                          <path d="M 115,22 
+                                   C 98,22 59,42 42,53 
+                                   C 30,62 27,82 27,105 
+                                   L 27,175 
+                                   C 27,192 38,212 52,223 
+                                   L 115,258" 
+                                stroke="#164086" stroke-width="3.5" fill="none" stroke-linecap="round"/>
+
+                          <!-- Right Red Accent Line -->
+                          <path d="M 213,105 
+                                   L 213,175 
+                                   C 213,195 200,215 185,225 
+                                   L 125,258" 
+                                stroke="#c8102e" stroke-width="3.5" fill="none" stroke-linecap="round"/>
+
+                          <!-- Top Radial Pinwheel Icon -->
+                          <g transform="translate(120, 72)">
+                            <path d="M 8,-6 C 18,-18 29,-14 31,-3 C 33,8 21,11 10,4 Z" fill="#111111" transform="rotate(0)"/>
+                            <path d="M 8,-6 C 18,-18 29,-14 31,-3 C 33,8 21,11 10,4 Z" fill="#111111" transform="rotate(25.7)"/>
+                            <path d="M 8,-6 C 18,-18 29,-14 31,-3 C 33,8 21,11 10,4 Z" fill="#164086" transform="rotate(51.4)"/>
+                            <path d="M 8,-6 C 18,-18 29,-14 31,-3 C 33,8 21,11 10,4 Z" fill="#164086" transform="rotate(77.1)"/>
+                            <path d="M 8,-6 C 18,-18 29,-14 31,-3 C 33,8 21,11 10,4 Z" fill="#164086" transform="rotate(102.8)"/>
+                            <path d="M 8,-6 C 18,-18 29,-14 31,-3 C 33,8 21,11 10,4 Z" fill="#c8102e" transform="rotate(128.5)"/>
+                            <path d="M 8,-6 C 18,-18 29,-14 31,-3 C 33,8 21,11 10,4 Z" fill="#c8102e" transform="rotate(154.2)"/>
+                            <path d="M 8,-6 C 18,-18 29,-14 31,-3 C 33,8 21,11 10,4 Z" fill="#c8102e" transform="rotate(179.9)"/>
+                            <path d="M 8,-6 C 18,-18 29,-14 31,-3 C 33,8 21,11 10,4 Z" fill="#c8102e" transform="rotate(205.6)"/>
+                            <path d="M 8,-6 C 18,-18 29,-14 31,-3 C 33,8 21,11 10,4 Z" fill="#164086" transform="rotate(231.3)"/>
+                            <path d="M 8,-6 C 18,-18 29,-14 31,-3 C 33,8 21,11 10,4 Z" fill="#164086" transform="rotate(257)"/>
+                            <path d="M 8,-6 C 18,-18 29,-14 31,-3 C 33,8 21,11 10,4 Z" fill="#164086" transform="rotate(282.7)"/>
+                            <path d="M 8,-6 C 18,-18 29,-14 31,-3 C 33,8 21,11 10,4 Z" fill="#111111" transform="rotate(308.4)"/>
+                            <path d="M 8,-6 C 18,-18 29,-14 31,-3 C 33,8 21,11 10,4 Z" fill="#111111" transform="rotate(334.1)"/>
+                          </g>
+
+                          <!-- Side Dashes near AR -->
+                          <line x1="45" y1="145" x2="62" y2="145" stroke="#164086" stroke-width="3.5" stroke-linecap="round"/>
+                          <line x1="178" y1="145" x2="195" y2="145" stroke="#c8102e" stroke-width="3.5" stroke-linecap="round"/>
+
+                          <!-- Stylized Monogram AR -->
+                          <text x="120" y="152" font-family="'Plus Jakarta Sans', Arial, sans-serif" font-weight="900" font-size="52" fill="#111111" text-anchor="middle" letter-spacing="4">AR</text>
+
+                          <!-- Subtext: MULTI KARYA -->
+                          <text x="120" y="185" font-family="'Plus Jakarta Sans', Arial, sans-serif" font-weight="800" font-size="20" fill="#111111" text-anchor="middle" letter-spacing="2">MULTI KARYA</text>
+                          <line x1="60" y1="192" x2="180" y2="192" stroke="#164086" stroke-width="1.5"/>
+
+                          <!-- Subtext: BOROBUDUR -->
+                          <text x="120" y="222" font-family="'Plus Jakarta Sans', Arial, sans-serif" font-weight="900" font-size="22" fill="#c8102e" text-anchor="middle" letter-spacing="3">BOROBUDUR</text>
+
+                          <!-- Bottom Accent Diagonal Bars -->
+                          <polygon points="60,233 115,258 115,248 60,223" fill="#164086"/>
+                          <polygon points="125,258 180,233 180,223 125,248" fill="#c8102e"/>
+                        </g>
+                      </svg>
+                    </div>
                   </div>
-                  <div class="sig-signer-name underline-text-thin" id="view-signer-name">HAMDAN</div>
-                  <div class="sig-signer-role" id="view-signer-role">Finance Dept</div>
+                  <div class="sig-signer-name underline-text-thin" id="view-signer-name">AHMAD ROFIQ</div>
+                  <div class="sig-signer-role" id="view-signer-role">Direktur</div>
                 </div>
 
               </div>

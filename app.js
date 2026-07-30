@@ -1,10 +1,78 @@
+// Predefined Logo PT. AR MULTI KARYA (SVG Data URI)
+const LOGO_PT_AR_MULTI_KARYA = "data:image/svg+xml;utf8," + encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 540 180" width="540" height="180">
+  <g>
+    <path d="M 90,25 L 410,15 C 430,13 460,25 475,40 L 480,60 C 485,75 480,110 475,125 C 470,135 420,150 405,150 L 400,150 M 400,150 L 95,165 C 70,165 50,148 40,130 L 35,105 C 30,90 35,60 55,45 Z" fill="none" stroke="#2d2d2d" stroke-width="4.5" stroke-linejoin="round"/>
+    <path d="M 310,20 L 440,13" stroke="#333333" stroke-width="5" stroke-linecap="round"/>
+    <path d="M 130,162 L 395,153" stroke="#444444" stroke-width="5" stroke-linecap="round"/>
+    <path d="M 405,152 L 450,149" stroke="#777777" stroke-width="5" stroke-linecap="round"/>
+
+    <g transform="translate(118, 90)">
+      <path d="M 9,-7 C 20,-20 32,-16 34,-4 C 36,8 23,12 11,4 Z" fill="#e30613" transform="rotate(0)"/>
+      <path d="M 9,-7 C 20,-20 32,-16 34,-4 C 36,8 23,12 11,4 Z" fill="#e30613" transform="rotate(27.7)"/>
+      <path d="M 9,-7 C 20,-20 32,-16 34,-4 C 36,8 23,12 11,4 Z" fill="#e30613" transform="rotate(55.4)"/>
+      <path d="M 9,-7 C 20,-20 32,-16 34,-4 C 36,8 23,12 11,4 Z" fill="#e30613" transform="rotate(83.1)"/>
+      <path d="M 9,-7 C 20,-20 32,-16 34,-4 C 36,8 23,12 11,4 Z" fill="#666666" transform="rotate(110.8)"/>
+      <path d="M 9,-7 C 20,-20 32,-16 34,-4 C 36,8 23,12 11,4 Z" fill="#888888" transform="rotate(138.5)"/>
+      <path d="M 9,-7 C 20,-20 32,-16 34,-4 C 36,8 23,12 11,4 Z" fill="#aaaaaa" transform="rotate(166.2)"/>
+      <path d="M 9,-7 C 20,-20 32,-16 34,-4 C 36,8 23,12 11,4 Z" fill="#111111" transform="rotate(193.9)"/>
+      <path d="M 9,-7 C 20,-20 32,-16 34,-4 C 36,8 23,12 11,4 Z" fill="#222222" transform="rotate(221.6)"/>
+      <path d="M 9,-7 C 20,-20 32,-16 34,-4 C 36,8 23,12 11,4 Z" fill="#333333" transform="rotate(249.3)"/>
+      <path d="M 9,-7 C 20,-20 32,-16 34,-4 C 36,8 23,12 11,4 Z" fill="#444444" transform="rotate(277)"/>
+      <path d="M 9,-7 C 20,-20 32,-16 34,-4 C 36,8 23,12 11,4 Z" fill="#555555" transform="rotate(304.7)"/>
+      <path d="M 9,-7 C 20,-20 32,-16 34,-4 C 36,8 23,12 11,4 Z" fill="#666666" transform="rotate(332.4)"/>
+    </g>
+
+    <text x="175" y="68" font-family="'Plus Jakarta Sans', Arial, sans-serif" font-weight="700" font-size="24" fill="#1a1a1a" letter-spacing="1">AR MULTI KARYA</text>
+    <line x1="175" y1="78" x2="470" y2="74" stroke="#888888" stroke-width="2"/>
+    
+    <text x="175" y="118" font-family="'Plus Jakarta Sans', Arial, sans-serif" font-weight="900" font-style="italic" font-size="36" fill="#111111" letter-spacing="1">BOROBUDUR</text>
+    <line x1="175" y1="128" x2="480" y2="122" stroke="#e30613" stroke-width="3.5"/>
+  </g>
+</svg>`);
+
 // Initial State Data (Prefilled with the user's example)
 const PREFILLED_DATA = [
+  {
+    id: "inv-example-armk",
+    ref: "INV/000065",
+    date: "2026-07-30",
+    dueDate: "2026-08-01",
+    logo: LOGO_PT_AR_MULTI_KARYA,
+    showStamp: true,
+    company: {
+      name: "PT. AR MULTI KARYA",
+      address: "PUTON TUKSONGO, BOROBUDUR",
+      phone: "082138800279",
+      email: "armultikarya@gmail.com"
+    },
+    client: {
+      name: "F & B PANCARGA TANI GEMILANG",
+      address: "Dusun Susukan Rt06/02, Kec. Grabag, Magelang 56196",
+      email: "pancargatanigemilang@gmail.com"
+    },
+    items: [
+      {
+        id: "item-armk-1",
+        description: "PENJUALAN BARANG LOGISTIK / JASA",
+        qtyUnit: "PAKET",
+        quantity: 1,
+        price: 1500000
+      }
+    ],
+    notes: `- Pembayaran dapat dilakukan melalui:
+  Rekening Mandiri 185-00-1062455-6 a.n PT. AR MULTI KARYA
+- Harap konfirmasi Setelah Melakukan pembayaran dengan mengirimkan Bukti Transfer ke email armultikarya@gmail.com atau whatsapp 082138800279 untuk Mendapatkan Kwitansi pembayaran`,
+    signature: null,
+    signerName: "AHMAD ROFIQ",
+    signerRole: "Direktur"
+  },
   {
     id: "inv-example-1",
     ref: "INV/0061",
     date: "2026-07-12",
     dueDate: "2026-07-17",
+    logo: null,
+    showStamp: false,
     company: {
       name: "KWT SIDO MAKMUR",
       address: "PUTON, TUKSONGO, BOROBUDUR MAGELANG",
@@ -70,9 +138,11 @@ const elBtnAddItem = document.getElementById("btn-add-item");
 const elInvNotes = document.getElementById("inv-notes");
 const elSignerName = document.getElementById("signer-name");
 const elSignerRole = document.getElementById("signer-role");
+const elShowStampCheckbox = document.getElementById("show-stamp-checkbox");
 const elBtnClearSig = document.getElementById("btn-clear-sig");
 
 // Preview Elements
+const elViewStampContainer = document.getElementById("view-stamp-container");
 const elViewRef = document.getElementById("view-ref");
 const elViewDate = document.getElementById("view-date");
 const elViewDueDate = document.getElementById("view-due-date");
@@ -290,12 +360,13 @@ function createNewInvoice() {
     ref: `INV/${new Date().getFullYear()}/00${invoices.length + 1}`,
     date: todayStr,
     dueDate: dueStr,
-    logo: existingLogo,
+    logo: LOGO_PT_AR_MULTI_KARYA,
+    showStamp: true,
     company: {
-      name: "KWT SIDO MAKMUR",
-      address: "PUTON, TUKSONGO, BOROBUDUR MAGELANG",
+      name: "PT. AR MULTI KARYA",
+      address: "PUTON TUKSONGO, BOROBUDUR",
       phone: "082138800279",
-      email: "kwtsidomakmur@gmail.com"
+      email: "armultikarya@gmail.com"
     },
     client: {
       name: "F & B PANCARGA TANI GEMILANG",
@@ -305,16 +376,18 @@ function createNewInvoice() {
     items: [
       {
         id: "item-" + Date.now(),
-        description: "TAHU PUTIH",
-        qtyUnit: "PCS",
-        quantity: 2400,
-        price: 700
+        description: "PENJUALAN BARANG LOGISTIK / JASA",
+        qtyUnit: "PAKET",
+        quantity: 1,
+        price: 1000000
       }
     ],
-    notes: `PENGIRIMAN KE SPPG KETEP, SAWANGAN TANGGAL ${getIndonesianDateText(todayStr)}`,
+    notes: `- Pembayaran dapat dilakukan melalui:
+  Rekening Mandiri 185-00-1062455-6 a.n PT. AR MULTI KARYA
+- Harap konfirmasi Setelah Melakukan pembayaran dengan mengirimkan Bukti Transfer ke email armultikarya@gmail.com atau whatsapp 082138800279 untuk Mendapatkan Kwitansi pembayaran`,
     signature: null,
-    signerName: "SITI ZULIKAH",
-    signerRole: "KWT SIDO MAKMUR"
+    signerName: "AHMAD ROFIQ",
+    signerRole: "Direktur"
   };
 
   invoices.unshift(newInvoice);
@@ -354,7 +427,11 @@ function loadActiveInvoice() {
 
   // Reset logo file input filename representation and sync dropdown selection
   elCompanyLogoInput.value = "";
-  if (activeInv.logo === LOGO_KWT_SIDO_MAKMUR) {
+  if (activeInv.logo === LOGO_PT_AR_MULTI_KARYA) {
+    elCompanyLogoSelect.value = "ar_multi_karya";
+    elCustomLogoUploadContainer.style.display = "none";
+    elBtnRemoveLogo.style.display = "none";
+  } else if (activeInv.logo === LOGO_KWT_SIDO_MAKMUR) {
     elCompanyLogoSelect.value = "kwt";
     elCustomLogoUploadContainer.style.display = "none";
     elBtnRemoveLogo.style.display = "none";
@@ -370,6 +447,10 @@ function loadActiveInvoice() {
     elCompanyLogoSelect.value = "custom";
     elCustomLogoUploadContainer.style.display = "block";
     elBtnRemoveLogo.style.display = "inline-block";
+  }
+
+  if (elShowStampCheckbox) {
+    elShowStampCheckbox.checked = activeInv.showStamp !== false;
   }
 
   // Render items in editor grid
@@ -624,8 +705,8 @@ function updatePreview() {
   elViewTerbilang.innerText = angkaKeTerbilang(total);
 
   // Signer Details
-  elViewSignerName.innerText = activeInv.signerName || "HAMDAN";
-  elViewSignerRole.innerText = activeInv.signerRole || "Finance Dept";
+  elViewSignerName.innerText = activeInv.signerName || "AHMAD ROFIQ";
+  elViewSignerRole.innerText = activeInv.signerRole || "Direktur";
 
   // Signature rendering
   if (activeInv.signature) {
@@ -635,6 +716,15 @@ function updatePreview() {
   } else {
     elViewSigImg.style.display = "none";
     elViewSigPlaceholder.style.display = "block";
+  }
+
+  // Stempel Company Stamp rendering
+  if (elViewStampContainer) {
+    if (activeInv.showStamp !== false && (activeInv.company?.name === "PT. AR MULTI KARYA" || activeInv.showStamp)) {
+      elViewStampContainer.style.display = "block";
+    } else {
+      elViewStampContainer.style.display = "none";
+    }
   }
 
   // Update current list metadata display without complete list redraw
@@ -708,23 +798,46 @@ function bindFormFields() {
 
       // Auto-populate other fields based on selected company
       const formattedDate = getIndonesianDateText(current.date);
-      if (current.company.name === "KWT SIDO MAKMUR") {
+      if (current.company.name === "PT. AR MULTI KARYA") {
+        current.company.address = "PUTON TUKSONGO, BOROBUDUR";
+        current.company.phone = "082138800279";
+        current.company.email = "armultikarya@gmail.com";
+        current.logo = LOGO_PT_AR_MULTI_KARYA;
+        current.signerName = "AHMAD ROFIQ";
+        current.signerRole = "Direktur";
+        current.showStamp = true;
+        current.notes = `- Pembayaran dapat dilakukan melalui:\n  Rekening Mandiri 185-00-1062455-6 a.n PT. AR MULTI KARYA\n- Harap konfirmasi Setelah Melakukan pembayaran dengan mengirimkan Bukti Transfer ke email armultikarya@gmail.com atau whatsapp 082138800279 untuk Mendapatkan Kwitansi pembayaran`;
+        elCompanyLogoSelect.value = "ar_multi_karya";
+      } else if (current.company.name === "KWT SIDO MAKMUR") {
         current.company.address = "PUTON, TUKSONGO, BOROBUDUR";
+        current.company.phone = "082138800279";
+        current.company.email = "kwtsidomakmur@gmail.com";
+        current.logo = LOGO_KWT_SIDO_MAKMUR;
         current.signerName = "SITI ZULIKAH";
         current.signerRole = "KWT SIDO MAKMUR";
+        current.showStamp = false;
         current.notes = `PENGIRIMAN KE SPPG KETEP, SAWANGAN TANGGAL ${formattedDate}`;
+        elCompanyLogoSelect.value = "kwt";
       } else if (current.company.name === "HAMDAN TAHU TEMPE") {
         current.company.address = "TANJUNGSARI, BOROBUDUR";
+        current.company.phone = "082138800279";
+        current.company.email = "kwtsidomakmur@gmail.com";
+        current.logo = LOGO_KWT_SIDO_MAKMUR;
         current.signerName = "HAMDAN";
         current.signerRole = "HAMDAN TAHU TEMPE";
+        current.showStamp = false;
         current.notes = `PENGIRIMAN KE SPPG NGADIHARJO, BOROBUDUR TANGGAL ${formattedDate}`;
+        elCompanyLogoSelect.value = "kwt";
       }
 
       // Update form values in editor panel to reflect changes instantly
       elCompanyAddress.value = current.company.address || "";
+      elCompanyPhone.value = current.company.phone || "";
+      elCompanyEmail.value = current.company.email || "";
       elSignerName.value = current.signerName || "";
       elSignerRole.value = current.signerRole || "";
       elInvNotes.value = current.notes || "";
+      if (elShowStampCheckbox) elShowStampCheckbox.checked = current.showStamp !== false;
 
       saveToStorage();
       updatePreview();
@@ -821,6 +934,17 @@ function bindFormFields() {
     }
   });
 
+  if (elShowStampCheckbox) {
+    elShowStampCheckbox.addEventListener("change", (e) => {
+      const current = invoices.find(inv => inv.id === activeInvoiceId);
+      if (current) {
+        current.showStamp = e.target.checked;
+        saveToStorage();
+        updatePreview();
+      }
+    });
+  }
+
   // Company Logo Input Changes
   elCompanyLogoInput.addEventListener("change", (e) => {
     const file = e.target.files[0];
@@ -844,7 +968,10 @@ function bindFormFields() {
     const current = invoices.find(inv => inv.id === activeInvoiceId);
     if (current) {
       const val = e.target.value;
-      if (val === "kwt") {
+      if (val === "ar_multi_karya") {
+        current.logo = LOGO_PT_AR_MULTI_KARYA;
+        elCustomLogoUploadContainer.style.display = "none";
+      } else if (val === "kwt") {
         current.logo = LOGO_KWT_SIDO_MAKMUR;
         elCustomLogoUploadContainer.style.display = "none";
       } else if (val === "hamdan") {
