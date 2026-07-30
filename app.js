@@ -5,7 +5,7 @@ const PREFILLED_DATA = [
     ref: "INV/000064",
     date: "2026-07-16",
     dueDate: "2026-07-18",
-    logo: "logo ar multi karya.jpg",
+    logo: "logo_ar_multi_karya.jpg",
     stamp: "stempel_ar_multi_karya-removebg-preview.png",
     company: {
       name: "PT AR MULTI KARYA",
@@ -300,7 +300,7 @@ function createNewInvoice() {
     ref: `INV/${new Date().getFullYear()}/00${invoices.length + 1}`,
     date: todayStr,
     dueDate: dueStr,
-    logo: "logo ar multi karya.jpg",
+    logo: "logo_ar_multi_karya.jpg",
     stamp: "stempel_ar_multi_karya-removebg-preview.png",
     company: {
       name: "PT AR MULTI KARYA",
@@ -365,7 +365,7 @@ function loadActiveInvoice() {
 
   // Reset logo file input filename representation and sync dropdown selection
   elCompanyLogoInput.value = "";
-  if (activeInv.logo === "logo ar multi karya.jpg" || activeInv.logo?.includes("ar multi karya")) {
+  if (activeInv.logo === "logo_ar_multi_karya.jpg" || activeInv.logo?.includes("ar multi karya")) {
     elCompanyLogoSelect.value = "ar_multi_karya";
     elCustomLogoUploadContainer.style.display = "none";
     elBtnRemoveLogo.style.display = "none";
@@ -756,7 +756,7 @@ function bindFormFields() {
         current.company.address = "PUTON, TUKSONGO, BOROBUDUR";
         current.company.phone = "082138800279";
         current.company.email = "armultikarya@gmail.com";
-        current.logo = "logo ar multi karya.jpg";
+        current.logo = "logo_ar_multi_karya.jpg";
         current.stamp = "stempel_ar_multi_karya-removebg-preview.png";
         current.signerName = "AHMAD ROFIQ";
         current.signerRole = "PT. AR MULTI KARYA";
