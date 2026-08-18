@@ -4,30 +4,47 @@
   <script>
     (function() {
       var logs = [];
+      function isNetworkError(str) {
+        if (!str) return false;
+        var s = String(str).toLowerCase();
+        return s.includes('failed to fetch') || 
+               s.includes('networkerror') || 
+               s.includes('load failed') || 
+               s.includes('fetch failed') ||
+               s.includes('network error') ||
+               s.includes('typeerror');
+      }
+
       window.addEventListener('error', function(e) {
-        var msg = '[' + new Date().toLocaleTimeString() + '] ' + e.message + ' at ' + e.filename + ':' + e.lineno + ':' + e.colno;
+        var msgStr = (e && e.message) ? String(e.message) : (e && e.error ? String(e.error) : '');
+        if (isNetworkError(msgStr)) {
+          console.warn('Network error event suppressed from debug overlay:', msgStr);
+          return;
+        }
+        var msg = '[' + new Date().toLocaleTimeString() + '] ' + (e.message || 'Error') + ' at ' + e.filename + ':' + e.lineno + ':' + e.colno;
         if (e.error && e.error.stack) {
           msg += '\nStack: ' + e.error.stack;
         }
         logs.push(msg);
         showConsole();
       });
+
       window.addEventListener('unhandledrejection', function(e) {
-        var reason = e.reason;
-        var reasonMsg = reason ? (reason.message || String(reason)) : '';
-        if (typeof reasonMsg === 'string' && (
-          reasonMsg.includes('Failed to fetch') || 
-          reasonMsg.includes('NetworkError') || 
-          reasonMsg.includes('Load failed') ||
-          reasonMsg.includes('fetch failed')
-        )) {
-          console.warn('Network fetch rejection handled:', reasonMsg);
-          e.preventDefault();
+        var reason = e ? e.reason : null;
+        var reasonMsg = '';
+        if (reason) {
+          if (typeof reason === 'string') reasonMsg = reason;
+          else if (reason.message) reasonMsg = String(reason.message);
+          else reasonMsg = String(reason);
+        }
+        if (isNetworkError(reasonMsg) || isNetworkError(reason)) {
+          console.warn('Unhandled network rejection suppressed from debug overlay:', reasonMsg);
+          if (e.preventDefault) e.preventDefault();
           return;
         }
-        var msg = '[' + new Date().toLocaleTimeString() + '] Unhandled Rejection: ' + reasonMsg;
-        if (e.reason && e.reason.stack) {
-          msg += '\nStack: ' + e.reason.stack;
+        var msg = '[' + new Date().toLocaleTimeString() + '] Unhandled Rejection: ' + (reasonMsg || 'Unknown Error');
+        if (reason && reason.stack) {
+          msg += '\nStack: ' + reason.stack;
         }
         logs.push(msg);
         showConsole();
@@ -257,8 +274,12 @@
     let useFallback = false;
 
     // --- SUPABASE CLOUD DATABASE SETUP ---
-    const DEFAULT_SUPABASE_URL = 'https://rmicglwqmulpbkvjvduw.supabase.co';
-    const DEFAULT_SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJtaWNnbHdxbXVscGJrdmp2ZHV3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODQ3MjgwMjgsImV4cCI6MjEwMDMwNDAyOH0.Ypkd4CPXI4POYZ7hEi_29USe6eYXO_0vYnkywvNSBs0';
+    const DEFAULT_SUPABASE_URL = '';
+    const DEFAULT_SUPABASE_KEY = '';
+    if (localStorage.getItem('pt_ar_supabase_url') === 'https://rmicglwqmulpbkvjvduw.supabase.co') {
+      localStorage.removeItem('pt_ar_supabase_url');
+      localStorage.removeItem('pt_ar_supabase_key');
+    }
     let isSupabaseDisabled = localStorage.getItem('pt_ar_supabase_disabled') === 'true';
     let supabaseUrl = isSupabaseDisabled ? '' : (localStorage.getItem('pt_ar_supabase_url') || DEFAULT_SUPABASE_URL);
     let supabaseKey = isSupabaseDisabled ? '' : (localStorage.getItem('pt_ar_supabase_key') || DEFAULT_SUPABASE_KEY);
