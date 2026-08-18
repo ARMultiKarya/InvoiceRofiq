@@ -182,21 +182,27 @@
   <!-- Custom CSS -->
   <link rel="stylesheet" href="styles.css">
 
-  <!-- React 18 & ReactDOM (Local / Offline) -->
+  <!-- React 18 & ReactDOM (Local with CDN Fallback) -->
   <script src="js/react.production.min.js"></script>
+  <script>window.React || document.write('<script src="https://cdn.jsdelivr.net/npm/react@18/umd/react.production.min.js"><\/script>')</script>
   <script src="js/react-dom.production.min.js"></script>
+  <script>window.ReactDOM || document.write('<script src="https://cdn.jsdelivr.net/npm/react-dom@18/umd/react-dom.production.min.js"><\/script>')</script>
   
-  <!-- Babel Standalone (Local / Offline) -->
+  <!-- Babel Standalone (Local with CDN Fallback) -->
   <script src="js/babel.min.js"></script>
+  <script>window.Babel || document.write('<script src="https://unpkg.com/@babel/standalone/babel.min.js"><\/script>')</script>
 
-  <!-- Lucide Icons (Local / Offline) -->
+  <!-- Lucide Icons (Local with CDN Fallback) -->
   <script src="js/lucide.min.js"></script>
+  <script>window.lucide || document.write('<script src="https://cdn.jsdelivr.net/npm/lucide@latest/dist/umd/lucide.min.js"><\/script>')</script>
 
-  <!-- Chart.js (Local / Offline) -->
+  <!-- Chart.js (Local with CDN Fallback) -->
   <script src="js/chart.js"></script>
+  <script>window.Chart || document.write('<script src="https://cdn.jsdelivr.net/npm/chart.js"><\/script>')</script>
 
-  <!-- SheetJS (Local / Offline) -->
+  <!-- SheetJS (Local with CDN Fallback) -->
   <script src="js/xlsx.full.min.js"></script>
+  <script>window.XLSX || document.write('<script src="https://cdn.jsdelivr.net/npm/xlsx@latest/dist/xlsx.full.min.js"><\/script>')</script>
 
   <!-- Supabase CDN Client -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
@@ -204,7 +210,12 @@
   <!-- Custom Babel Runner to Catch & Show Compile Errors -->
   <script>
     (function() {
-      window.addEventListener('DOMContentLoaded', function() {
+      function runBabelCompilation() {
+        if (typeof Babel === 'undefined') {
+          console.warn('Babel is still loading, retrying in 50ms...');
+          setTimeout(runBabelCompilation, 50);
+          return;
+        }
         var scripts = document.querySelectorAll('script[type="text/custom-babel"]');
         scripts.forEach(function(script) {
           try {
@@ -237,10 +248,16 @@
               errorDiv.style.whiteSpace = 'pre-wrap';
               document.body.appendChild(errorDiv);
             }
-            errorDiv.textContent = '=== BABEL COMPILATION ERROR ===\n' + err.message + '\n\n' + err.stack + '\n\n' + errorDiv.textContent;
+            errorDiv.textContent = '=== BABEL COMPILATION ERROR ===\n' + err.message + '\n\n' + (err.stack || '') + '\n\n' + errorDiv.textContent;
           }
         });
-      });
+      }
+
+      if (document.readyState === 'loading') {
+        window.addEventListener('DOMContentLoaded', runBabelCompilation);
+      } else {
+        runBabelCompilation();
+      }
     })();
   </script>
 </head>
